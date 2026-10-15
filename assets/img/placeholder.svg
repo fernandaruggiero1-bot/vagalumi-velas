@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Placeholder creme usado enquanto as fotos reais não chegam -->
+  <rect width="800" height="800" fill="#F3EDE3"/>
+  <path d="M400 340c4 34 22 52 56 56c-34 4-52 22-56 56c-4-34-22-52-56-56c34-4 52-22 56-56z" fill="#C9A45C" opacity=".7"/>
+  <circle cx="470" cy="330" r="4" fill="#C9A45C" opacity=".6"/>
+  <circle cx="330" cy="470" r="3" fill="#C9A45C" opacity=".6"/>
+</svg>
