@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== SEO ===== -->
+  <title>Vagalumi Velas | Velas aromáticas artesanais e lembrancinhas personalizadas no RJ</title>
+  <meta name="description" content="Velas aromáticas artesanais, kits presente e lembrancinhas personalizadas para maternidade, batizado, casamento e 15 anos. Feitas à mão com cera 100% vegetal no Rio de Janeiro.">
+  <meta name="theme-color" content="#FBF8F3">
+
+  <!-- ===== OPEN GRAPH (aparece quando o link é compartilhado) =====
+       Depois de publicar, troque https://SEU-DOMINIO pelo endereço real do site. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Vagalumi Velas">
+  <meta property="og:title" content="Vagalumi Velas | Presentes que aquecem a alma">
+  <meta property="og:description" content="Velas aromáticas artesanais, kits presente e lembrancinhas personalizadas, feitas à mão com cera 100% vegetal.">
+  <meta property="og:image" content="https://SEU-DOMINIO/assets/img/og-image.jpg">
+  <meta property="og:url" content="https://SEU-DOMINIO/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <!-- ===== FONTES ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500&display=swap">
+
+  <link rel="preload" as="image" href="assets/img/hero.webp" fetchpriority="high">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Enquanto as fotos reais não chegam, qualquer imagem que não for encontrada
+       vira um quadrado creme (assets/img/placeholder.svg). Pode deixar como está. -->
+  <script>
+    document.documentElement.classList.add('js');
+    window.addEventListener('error', function (e) {
+      var img = e.target;
+      if (img && img.tagName === 'IMG' && !img.hasAttribute('data-sem-fallback') && img.src.indexOf('placeholder.svg') === -1) {
+        img.src = 'assets/img/placeholder.svg';
+        img.classList.add('is-placeholder');
+      }
+    }, true);
+  </script>
+
+  <!-- ===== DADOS ESTRUTURADOS (Google) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Vagalumi Velas",
+    "description": "Velas aromáticas artesanais, kits presente e lembrancinhas personalizadas feitas à mão com cera 100% vegetal.",
+    "url": "https://SEU-DOMINIO/",
+    "image": "https://SEU-DOMINIO/assets/img/og-image.jpg",
+    "logo": "https://SEU-DOMINIO/assets/img/logo.png",
+    "telephone": "+55-21-99368-1791",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "RJ",
+      "addressCountry": "BR"
+    },
+    "areaServed": "Rio de Janeiro e Baixada Fluminense",
+    "founder": { "@type": "Person", "name": "Gabi" },
+    "sameAs": ["https://instagram.com/vagalumi.velas"]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ===== ÍCONES SVG (usados no site inteiro com <use href="#nome">) ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-estrela" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.6 5.4 11.4 12 12-6.6.6-11.4 5.4-12 12-.6-6.6-5.4-11.4-12-12C6.6 11.4 11.4 6.6 12 0z"/></symbol>
+    <symbol id="i-sacola" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 13H6L5 8z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></g></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" d="M3 7h18M3 12h18M3 17h18"/></symbol>
+    <symbol id="i-fechar" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-folha" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 26C6 13 14 6 27 5c0 13-7 21-19 21"/><path d="M6 26l12-12"/></g></symbol>
+    <symbol id="i-coracao" viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" d="M16 27S4 19.5 4 11.5A5.8 5.8 0 0 1 16 9a5.8 5.8 0 0 1 12 2.5C28 19.5 16 27 16 27z"/></symbol>
+    <symbol id="i-presente" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><rect x="5" y="11" width="22" height="5" rx="1"/><path d="M7 16v11h18V16M16 11v16"/><path d="M16 11c-2-4-7-5-7-2s5 2 7 2zM16 11c2-4 7-5 7-2s-5 2-7 2z"/></g></symbol>
+    <symbol id="i-conversa" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M5 7h22v15H13l-6 5v-5H5z"/><path stroke-linecap="round" d="M10 13h12M10 17h8"/></g></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.12-.28-.2-.57-.34m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.17-1.24-6.16-3.48-8.41z"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></g></symbol>
+    <symbol id="i-seta-esq" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-seta-dir" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-mais" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-menos" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" d="M5 12h14"/></symbol>
+    <!-- Símbolo do logo (usado quando o logo.png ainda não está na pasta e no rodapé) -->
+    <symbol id="logo-simbolo" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+        <ellipse cx="25" cy="14" rx="7" ry="3.6" transform="rotate(-25 25 14)"/>
+        <ellipse cx="39" cy="14" rx="7" ry="3.6" transform="rotate(25 39 14)"/>
+        <path d="M31 6.5q-1.5-3.5-5-4.5M33 6.5q1.5-3.5 5-4.5"/>
+        <ellipse cx="32" cy="16" rx="3" ry="6.5"/>
+        <circle cx="32" cy="8.3" r="2.2"/>
+        <rect x="17" y="41" width="8" height="19" rx="1"/>
+        <rect x="28" y="37" width="8" height="23" rx="1"/>
+        <rect x="39" y="43" width="8" height="17" rx="1"/>
+        <path d="M21 41v-2M32 37v-2M43 43v-2"/>
+      </g>
+      <g fill="#C9A45C">
+        <circle cx="32" cy="25" r="2.2"/>
+        <path d="M21 33c2.2 2.6 2.2 4.6 0 5.6-2.2-1-2.2-3 0-5.6zM32 29c2.2 2.6 2.2 4.6 0 5.6-2.2-1-2.2-3 0-5.6zM43 35c2.2 2.6 2.2 4.6 0 5.6-2.2-1-2.2-3 0-5.6z"/>
+        <path d="M10 22c.3 2.6 1.4 3.7 4 4-2.6.3-3.7 1.4-4 4-.3-2.6-1.4-3.7-4-4 2.6-.3 3.7-1.4 4-4zM54 26c.25 2 1 2.75 3 3-2 .25-2.75 1-3 3-.25-2-1-2.75-3-3 2-.25 2.75-1 3-3z"/>
+        <circle cx="50" cy="12" r="1"/><circle cx="13" cy="38" r=".9"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ===== BARRA DE ANÚNCIO ROLANTE =====
+       Para trocar o texto, edite as duas frases abaixo (as duas precisam ser iguais
+       para o loop ficar contínuo). -->
+  <div class="anuncio" role="region" aria-label="Avisos">
+    <div class="anuncio__trilho">
+      <p class="anuncio__texto">ENCOMENDAS DE NATAL ABERTAS ✦ KITS PRESENTE A PARTIR DE R$ 35 ✦ LEMBRANCINHAS PERSONALIZADAS PARA SEU EVENTO ✦&nbsp;</p>
+      <p class="anuncio__texto" aria-hidden="true">ENCOMENDAS DE NATAL ABERTAS ✦ KITS PRESENTE A PARTIR DE R$ 35 ✦ LEMBRANCINHAS PERSONALIZADAS PARA SEU EVENTO ✦&nbsp;</p>
+    </div>
+  </div>
+
+  <!-- ===== CABEÇALHO ===== -->
+  <header class="cabecalho" id="cabecalho">
+    <div class="cabecalho__barra container">
+      <button class="icone-botao cabecalho__menu" id="abrir-menu" aria-label="Abrir menu" aria-controls="menu-principal" aria-expanded="false">
+        <svg width="24" height="24" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+
+      <a href="#inicio" class="logo" aria-label="Vagalumi Velas, voltar ao início">
+        <!-- Coloque o arquivo do logo em assets/img/logo.png. Enquanto ele não existir,
+             aparece a versão desenhada em código logo abaixo. -->
+        <img class="logo__img" src="assets/img/logo.png" alt="Vagalumi Velas" width="240" height="120" data-sem-fallback
+             onerror="this.parentNode.classList.add('logo--texto');this.remove()">
+        <span class="logo__texto" aria-hidden="true">
+          <svg class="logo__simbolo" width="44" height="44"><use href="#logo-simbolo"/></svg>
+          <span class="logo__nome">Vagalumi</span>
+          <span class="logo__velas">VELAS</span>
+        </span>
+      </a>
+
+      <button class="icone-botao cabecalho__sacola" id="abrir-sacola" aria-label="Abrir sacola, 0 itens" aria-controls="sacola" aria-expanded="false">
+        <svg width="24" height="24" aria-hidden="true"><use href="#i-sacola"/></svg>
+        <span class="contador" id="contador-sacola" aria-hidden="true">0</span>
+      </button>
+    </div>
+
+    <!-- Menu: no desktop fica em linha abaixo do logo; no celular vira gaveta pela esquerda -->
+    <nav class="menu" id="menu-principal" aria-label="Menu principal">
+      <div class="menu__topo">
+        <span class="menu__titulo">Menu</span>
+        <button class="icone-botao" id="fechar-menu" aria-label="Fechar menu">
+          <svg width="24" height="24" aria-hidden="true"><use href="#i-fechar"/></svg>
+        </button>
+      </div>
+      <ul class="menu__lista">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#velas">Velas</a></li>
+        <li><a href="#kits">Kits</a></li>
+        <li><a href="#personalizados">Personalizados</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#como-encomendar">Como encomendar</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="inicio">
+      <div class="hero__estrelas" aria-hidden="true">
+        <svg class="estrela estrela--1"><use href="#i-estrela"/></svg>
+        <svg class="estrela estrela--2"><use href="#i-estrela"/></svg>
+        <svg class="estrela estrela--3"><use href="#i-estrela"/></svg>
+        <svg class="estrela estrela--4"><use href="#i-estrela"/></svg>
+        <span class="pontinho pontinho--1"></span>
+        <span class="pontinho pontinho--2"></span>
+        <span class="pontinho pontinho--3"></span>
+      </div>
+
+      <div class="hero__grade container">
+        <div class="hero__texto">
+          <p class="sobretitulo">Velas artesanais · Rio de Janeiro</p>
+          <h1 class="hero__titulo">Presentes que aquecem a alma</h1>
+          <p class="hero__subtitulo">Velas aromáticas artesanais, kits presente e lembrancinhas personalizadas, feitas à mão com cera 100% vegetal.</p>
+          <div class="hero__botoes">
+            <a href="#velas" class="botao">Ver as velas</a>
+            <a href="#" class="botao botao--contorno" data-whatsapp="Olá! Vim pelo site da Vagalumi e quero fazer uma encomenda ✨" target="_blank" rel="noopener">
+              <svg width="18" height="18" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+              Encomendar pelo WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="hero__foto">
+          <img src="assets/img/hero.webp" alt="Velas aromáticas Vagalumi acesas sobre bandeja dourada espelhada" width="1080" height="1350" fetchpriority="high">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BENEFÍCIOS ===== -->
+    <section class="beneficios" aria-label="Por que escolher a Vagalumi">
+      <ul class="beneficios__lista container">
+        <li class="beneficio revelar">
+          <svg class="beneficio__icone" width="36" height="36" aria-hidden="true"><use href="#i-folha"/></svg>
+          <span>Cera 100% vegetal</span>
+        </li>
+        <li class="beneficio revelar">
+          <svg class="beneficio__icone" width="36" height="36" aria-hidden="true"><use href="#i-coracao"/></svg>
+          <span>Feito à mão</span>
+        </li>
+        <li class="beneficio revelar">
+          <svg class="beneficio__icone" width="36" height="36" aria-hidden="true"><use href="#i-presente"/></svg>
+          <span>Personalizamos para seu evento</span>
+        </li>
+        <li class="beneficio revelar">
+          <svg class="beneficio__icone" width="36" height="36" aria-hidden="true"><use href="#i-conversa"/></svg>
+          <span>Pedido fácil pelo WhatsApp</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== QUERIDINHAS DA VAGALUMI (catálogo) =====
+         Os cards são montados automaticamente a partir de js/produtos.js -->
+    <section class="secao" id="velas">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <svg class="ornamento" width="16" height="16" aria-hidden="true"><use href="#i-estrela"/></svg>
+          <h2 class="secao__titulo">Queridinhas da Vagalumi</h2>
+          <p class="secao__texto">Aromas que acolhem, feitos à mão para iluminar o seu dia.</p>
+        </header>
+
+        <div class="filtros" id="kits" role="group" aria-label="Filtrar produtos">
+          <button class="filtro is-ativo" data-filtro="todas" aria-pressed="true">Todas</button>
+          <button class="filtro" data-filtro="aromaticas" aria-pressed="false">Velas aromáticas</button>
+          <button class="filtro" data-filtro="lata" aria-pressed="false">Velas em lata</button>
+          <button class="filtro" data-filtro="kits" aria-pressed="false">Kits</button>
+        </div>
+
+        <ul class="grade-produtos" id="grade-produtos" aria-live="polite"></ul>
+        <noscript><p class="secao__texto">Ative o JavaScript para ver o catálogo, ou fale com a gente pelo Instagram @vagalumi.velas.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ===== PRODUTO EM DESTAQUE =====
+         O preço vem de js/produtos.js (id "kit-auto-cuidado"), assim fica num lugar só. -->
+    <section class="secao secao--alt destaque" aria-labelledby="destaque-titulo">
+      <div class="container destaque__grade">
+        <div class="destaque__foto revelar">
+          <img src="assets/img/produtos/kit-auto-cuidado.webp" alt="Kit Auto Cuidado Vagalumi com vela aromática e sachê aromático" width="800" height="800" loading="lazy">
+        </div>
+        <div class="destaque__info revelar" data-produto="kit-auto-cuidado">
+          <p class="sobretitulo">Presente pronto</p>
+          <h2 class="destaque__nome" id="destaque-titulo">Kit Auto Cuidado</h2>
+          <p class="destaque__preco" data-preco>R$ 35,00</p>
+          <p class="destaque__descricao">Um convite para desacelerar. Um pequeno ritual de aconchego para você ou para quem você ama.</p>
+
+          <h3 class="destaque__subtitulo">O que vem no kit</h3>
+          <ul class="destaque__itens">
+            <li>Vela aromática artesanal com cera 100% vegetal</li>
+            <li>Sachê aromático</li>
+            <li>Embalagem para presente</li>
+          </ul>
+
+          <div class="destaque__compra">
+            <div class="quantidade" role="group" aria-label="Quantidade">
+              <button class="quantidade__botao" data-qtd="-1" aria-label="Diminuir quantidade">
+                <svg width="16" height="16" aria-hidden="true"><use href="#i-menos"/></svg>
+              </button>
+              <output class="quantidade__valor" id="qtd-destaque" aria-live="polite">1</output>
+              <button class="quantidade__botao" data-qtd="1" aria-label="Aumentar quantidade">
+                <svg width="16" height="16" aria-hidden="true"><use href="#i-mais"/></svg>
+              </button>
+            </div>
+            <button class="botao botao--largo" id="adicionar-destaque">Adicionar à sacola</button>
+          </div>
+
+          <button class="link-mais" id="ver-mais" aria-expanded="false" aria-controls="mais-detalhes">Ver mais detalhes</button>
+          <div class="destaque__mais" id="mais-detalhes" hidden>
+            <p>Cada kit é montado à mão pela Gabi, com atenção a cada detalhe, do aroma ao laço da embalagem.</p>
+            <p>Aroma da vela: [AROMAS DISPONÍVEIS A CONFIRMAR COM A GABI]<br>
+               Tamanho e tempo de queima: [A CONFIRMAR COM A GABI]</p>
+            <p>Dica: acenda a vela pela primeira vez por cerca de 2 horas, até a superfície derreter por igual. Mantenha longe de correntes de ar e nunca deixe acesa sem supervisão.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PERSONALIZADOS ===== -->
+    <section class="secao" id="personalizados">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <svg class="ornamento" width="16" height="16" aria-hidden="true"><use href="#i-estrela"/></svg>
+          <p class="sobretitulo">Personalizados para seu momento</p>
+          <h2 class="secao__titulo secao__titulo--script">Lembrancinhas que ficam na memória</h2>
+          <p class="secao__texto">Velas com nome, data e embalagem pensados para o seu evento. Lembranças que permanecem.</p>
+        </header>
+
+        <!-- Cada botão abre o WhatsApp com a mensagem do atributo data-whatsapp -->
+        <ul class="ocasioes">
+          <li class="ocasiao revelar">
+            <img src="assets/img/ocasioes/maternidade.webp" alt="Lembrancinhas de maternidade com nome do bebê" width="800" height="1000" loading="lazy">
+            <div class="ocasiao__info">
+              <h3 class="ocasiao__nome">Maternidade</h3>
+              <a href="#" class="botao botao--pequeno" target="_blank" rel="noopener" data-whatsapp="Olá! Vim pelo site e quero um orçamento de lembrancinhas para Maternidade.">Quero orçamento</a>
+            </div>
+          </li>
+          <li class="ocasiao revelar">
+            <img src="assets/img/ocasioes/batizado.webp" alt="Lembrancinhas de batizado e primeira comunhão" width="800" height="1000" loading="lazy">
+            <div class="ocasiao__info">
+              <h3 class="ocasiao__nome">Batizado e 1ª Comunhão</h3>
+              <a href="#" class="botao botao--pequeno" target="_blank" rel="noopener" data-whatsapp="Olá! Vim pelo site e quero um orçamento de lembrancinhas para Batizado e 1ª Comunhão.">Quero orçamento</a>
+            </div>
+          </li>
+          <li class="ocasiao revelar">
+            <img src="assets/img/ocasioes/casamento.webp" alt="Lembrancinhas de casamento" width="800" height="1000" loading="lazy">
+            <div class="ocasiao__info">
+              <h3 class="ocasiao__nome">Casamento</h3>
+              <a href="#" class="botao botao--pequeno" target="_blank" rel="noopener" data-whatsapp="Olá! Vim pelo site e quero um orçamento de lembrancinhas para Casamento.">Quero orçamento</a>
+            </div>
+          </li>
+          <li class="ocasiao revelar">
+            <img src="assets/img/ocasioes/15-anos.webp" alt="Lembrancinhas de 15 anos" width="800" height="1000" loading="lazy">
+            <div class="ocasiao__info">
+              <h3 class="ocasiao__nome">15 anos</h3>
+              <a href="#" class="botao botao--pequeno" target="_blank" rel="noopener" data-whatsapp="Olá! Vim pelo site e quero um orçamento de lembrancinhas para 15 anos.">Quero orçamento</a>
+            </div>
+          </li>
+          <li class="ocasiao revelar">
+            <img src="assets/img/ocasioes/dia-das-maes.webp" alt="Kits presente para o Dia das Mães" width="800" height="1000" loading="lazy">
+            <div class="ocasiao__info">
+              <h3 class="ocasiao__nome">Dia das Mães</h3>
+              <a href="#" class="botao botao--pequeno" target="_blank" rel="noopener" data-whatsapp="Olá! Vim pelo site e quero um orçamento de lembrancinhas para Dia das Mães.">Quero orçamento</a>
+            </div>
+          </li>
+          <li class="ocasiao revelar">
+            <img src="assets/img/ocasioes/corporativo.webp" alt="Brindes corporativos com velas aromáticas" width="800" height="1000" loading="lazy">
+            <div class="ocasiao__info">
+              <h3 class="ocasiao__nome">Brindes corporativos</h3>
+              <a href="#" class="botao botao--pequeno" target="_blank" rel="noopener" data-whatsapp="Olá! Vim pelo site e quero um orçamento de lembrancinhas para Brindes corporativos.">Quero orçamento</a>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Galeria de entregas reais: troque as 6 fotos em assets/img/galeria/ -->
+        <h3 class="galeria__titulo revelar">Algumas entregas com carinho</h3>
+        <ul class="galeria">
+          <li class="galeria__item galeria__item--alto revelar"><img src="assets/img/galeria/entrega-1.webp" alt="Frascos personalizados com o nome do bebê" width="800" height="1200" loading="lazy"></li>
+          <li class="galeria__item revelar"><img src="assets/img/galeria/entrega-2.webp" alt="Kit presente com foto polaroid" width="800" height="800" loading="lazy"></li>
+          <li class="galeria__item revelar"><img src="assets/img/galeria/entrega-3.webp" alt="Lembrancinhas de batizado embaladas" width="800" height="800" loading="lazy"></li>
+          <li class="galeria__item revelar"><img src="assets/img/galeria/entrega-4.webp" alt="Velas personalizadas para casamento" width="800" height="800" loading="lazy"></li>
+          <li class="galeria__item revelar"><img src="assets/img/galeria/entrega-5.webp" alt="Velas aromáticas em embalagem kraft" width="800" height="800" loading="lazy"></li>
+          <li class="galeria__item galeria__item--largo revelar"><img src="assets/img/galeria/entrega-6.webp" alt="Mesa de lembrancinhas Vagalumi em um evento" width="1200" height="800" loading="lazy"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== COMO ENCOMENDAR ===== -->
+    <section class="secao secao--alt" id="como-encomendar">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <svg class="ornamento" width="16" height="16" aria-hidden="true"><use href="#i-estrela"/></svg>
+          <h2 class="secao__titulo">Como encomendar</h2>
+          <p class="secao__texto">Simples, próximo e do seu jeito.</p>
+        </header>
+        <ol class="passos">
+          <li class="passo revelar">
+            <span class="passo__numero" aria-hidden="true">1</span>
+            <p class="passo__texto">Escolha suas velas ou conte sua ideia</p>
+          </li>
+          <li class="passo revelar">
+            <span class="passo__numero" aria-hidden="true">2</span>
+            <p class="passo__texto">Fale com a Gabi pelo WhatsApp</p>
+          </li>
+          <li class="passo revelar">
+            <span class="passo__numero" aria-hidden="true">3</span>
+            <p class="passo__texto">Aprovamos aroma, embalagem e personalização</p>
+          </li>
+          <li class="passo revelar">
+            <span class="passo__numero" aria-hidden="true">4</span>
+            <p class="passo__texto">Retirada ou entrega combinada</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== SOBRE A VAGALUMI ===== -->
+    <section class="secao sobre" id="sobre">
+      <div class="container sobre__grade">
+        <div class="sobre__foto revelar">
+          <img src="assets/img/gabi.webp" alt="Gabi, fundadora da Vagalumi, produzindo velas à mão" width="800" height="1000" loading="lazy">
+        </div>
+        <div class="sobre__texto revelar">
+          <p class="sobretitulo">Sobre a Vagalumi</p>
+          <h2 class="secao__titulo secao__titulo--esquerda">Mais do que velas, experiências</h2>
+          <p>A Vagalumi nasceu do meu desejo de transformar pequenos momentos em lembranças especiais através da luz, do aroma e do afeto.</p>
+          <p>Cada vela é feita artesanalmente por mim, com cera 100% vegetal, carinho e atenção aos detalhes. Escolho cada aroma pensando no aconchego que ele vai levar para a sua casa, e em como ele pode virar um momento só seu, de pausa e autocuidado.</p>
+          <p>Seja um presente, uma lembrancinha para o seu evento ou um mimo para você mesma: que a Vagalumi ilumine momentos inesquecíveis.</p>
+          <p class="assinatura">Com carinho, Gabi</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DEPOIMENTOS =====
+         IMPORTANTE: substitua os 3 cards abaixo por depoimentos REAIS de clientes
+         (com autorização). Não invente depoimentos. Para adicionar mais, copie um <li>. -->
+    <section class="secao secao--alt" id="depoimentos" aria-labelledby="depoimentos-titulo">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <svg class="ornamento" width="16" height="16" aria-hidden="true"><use href="#i-estrela"/></svg>
+          <h2 class="secao__titulo" id="depoimentos-titulo">Quem recebeu, amou</h2>
+        </header>
+
+        <div class="carrossel">
+          <button class="icone-botao carrossel__seta carrossel__seta--esq" data-carrossel="-1" aria-label="Depoimento anterior">
+            <svg width="22" height="22" aria-hidden="true"><use href="#i-seta-esq"/></svg>
+          </button>
+          <ul class="carrossel__trilho" id="carrossel" tabindex="0" aria-label="Depoimentos de clientes">
+            <li class="depoimento">
+              <img class="depoimento__foto" src="assets/img/depoimentos/depoimento-1.webp" alt="[DESCREVA O PRINT OU FOTO DO DEPOIMENTO]" width="600" height="600" loading="lazy">
+              <blockquote class="depoimento__texto">“[DEPOIMENTO REAL AQUI]”</blockquote>
+              <p class="depoimento__autora">[NOME DA CLIENTE]</p>
+              <p class="depoimento__ocasiao">[OCASIÃO, ex.: Maternidade]</p>
+            </li>
+            <li class="depoimento">
+              <img class="depoimento__foto" src="assets/img/depoimentos/depoimento-2.webp" alt="[DESCREVA O PRINT OU FOTO DO DEPOIMENTO]" width="600" height="600" loading="lazy">
+              <blockquote class="depoimento__texto">“[DEPOIMENTO REAL AQUI]”</blockquote>
+              <p class="depoimento__autora">[NOME DA CLIENTE]</p>
+              <p class="depoimento__ocasiao">[OCASIÃO]</p>
+            </li>
+            <li class="depoimento">
+              <img class="depoimento__foto" src="assets/img/depoimentos/depoimento-3.webp" alt="[DESCREVA O PRINT OU FOTO DO DEPOIMENTO]" width="600" height="600" loading="lazy">
+              <blockquote class="depoimento__texto">“[DEPOIMENTO REAL AQUI]”</blockquote>
+              <p class="depoimento__autora">[NOME DA CLIENTE]</p>
+              <p class="depoimento__ocasiao">[OCASIÃO]</p>
+            </li>
+          </ul>
+          <button class="icone-botao carrossel__seta carrossel__seta--dir" data-carrossel="1" aria-label="Próximo depoimento">
+            <svg width="22" height="22" aria-hidden="true"><use href="#i-seta-dir"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PERGUNTAS FREQUENTES =====
+         Troque cada [RESPOSTA A CONFIRMAR COM A GABI] pela resposta real. -->
+    <section class="secao" id="faq" aria-labelledby="faq-titulo">
+      <div class="container container--estreito">
+        <header class="secao__cabecalho revelar">
+          <svg class="ornamento" width="16" height="16" aria-hidden="true"><use href="#i-estrela"/></svg>
+          <h2 class="secao__titulo" id="faq-titulo">Perguntas frequentes</h2>
+        </header>
+        <div class="faq revelar">
+          <details class="faq__item">
+            <summary>Quanto tempo dura a queima?</summary>
+            <p>[RESPOSTA A CONFIRMAR COM A GABI]</p>
+          </details>
+          <details class="faq__item">
+            <summary>A cera é vegetal?</summary>
+            <p>[RESPOSTA A CONFIRMAR COM A GABI]</p>
+          </details>
+          <details class="faq__item">
+            <summary>Vocês entregam ou é retirada?</summary>
+            <p>[RESPOSTA A CONFIRMAR COM A GABI]</p>
+          </details>
+          <details class="faq__item">
+            <summary>Com quanto tempo de antecedência encomendo lembrancinhas?</summary>
+            <p>[RESPOSTA A CONFIRMAR COM A GABI]</p>
+          </details>
+          <details class="faq__item">
+            <summary>Qual a quantidade mínima para personalizados?</summary>
+            <p>[RESPOSTA A CONFIRMAR COM A GABI]</p>
+          </details>
+          <details class="faq__item">
+            <summary>Como faço o pagamento?</summary>
+            <p>[RESPOSTA A CONFIRMAR COM A GABI]</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NEWSLETTER / LISTA VIP =====
+         COMO INTEGRAR:
+         • Formspree: crie um formulário em formspree.io e cole o endereço no action,
+           ex.: action="https://formspree.io/f/abcdwxyz"
+         • Mailchimp: em Audience > Signup forms > Embedded forms, copie a URL do
+           atributo action do formulário deles e cole aqui (o name do campo deve ser "EMAIL").
+         Enquanto o action estiver vazio, o site só mostra um aviso e não envia nada. -->
+    <section class="newsletter" aria-labelledby="newsletter-titulo">
+      <div class="container container--estreito newsletter__conteudo revelar">
+        <svg class="ornamento" width="16" height="16" aria-hidden="true"><use href="#i-estrela"/></svg>
+        <h2 class="newsletter__titulo" id="newsletter-titulo">Entre para a lista de luz</h2>
+        <p class="secao__texto">Receba lançamentos de aromas e campanhas especiais em primeira mão.</p>
+        <form class="newsletter__form" id="form-newsletter" action="" method="POST">
+          <label class="visualmente-oculto" for="email-newsletter">Seu e-mail</label>
+          <input type="email" id="email-newsletter" name="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+          <button type="submit" class="botao">Quero entrar</button>
+        </form>
+        <p class="newsletter__aviso" id="aviso-newsletter" role="status"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="rodape" id="contato">
+    <div class="container rodape__grade">
+      <div class="rodape__marca">
+        <span class="logo__texto logo__texto--claro">
+          <svg class="logo__simbolo" width="52" height="52" aria-hidden="true"><use href="#logo-simbolo"/></svg>
+          <span class="logo__nome">Vagalumi</span>
+          <span class="logo__velas">VELAS</span>
+        </span>
+        <p class="rodape__frase">Presentes que aquecem a alma.</p>
+      </div>
+
+      <nav aria-label="Menu do rodapé">
+        <ul class="rodape__menu">
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#velas">Velas</a></li>
+          <li><a href="#kits">Kits</a></li>
+          <li><a href="#personalizados">Personalizados</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#como-encomendar">Como encomendar</a></li>
+        </ul>
+      </nav>
+
+      <div class="rodape__contato">
+        <a href="https://instagram.com/vagalumi.velas" target="_blank" rel="noopener" class="rodape__link">
+          <svg width="20" height="20" aria-hidden="true"><use href="#i-instagram"/></svg>
+          @vagalumi.velas
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="rodape__link" data-whatsapp="Olá! Vim pelo site da Vagalumi ✨">
+          <svg width="20" height="20" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          WhatsApp
+        </a>
+        <p class="rodape__local">Rio de Janeiro – RJ</p>
+      </div>
+    </div>
+    <p class="rodape__copy">© 2026 Vagalumi Velas. Feito à mão com luz e afeto.</p>
+  </footer>
+
+  <!-- ===== BOTÃO FLUTUANTE DE WHATSAPP ===== -->
+  <a href="#" class="whatsapp-flutuante" id="whatsapp-flutuante" target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp" data-whatsapp="Olá! Vim pelo site da Vagalumi ✨">
+    <svg width="30" height="30" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+  </a>
+
+  <!-- ===== SACOLA (gaveta lateral) ===== -->
+  <div class="fundo-escuro" id="fundo-escuro" hidden></div>
+  <aside class="sacola" id="sacola" role="dialog" aria-modal="true" aria-labelledby="sacola-titulo" aria-hidden="true">
+    <div class="sacola__topo">
+      <h2 class="sacola__titulo" id="sacola-titulo">Sua sacola</h2>
+      <button class="icone-botao" id="fechar-sacola" aria-label="Fechar sacola">
+        <svg width="24" height="24" aria-hidden="true"><use href="#i-fechar"/></svg>
+      </button>
+    </div>
+
+    <div class="sacola__corpo">
+      <ul class="sacola__lista" id="sacola-lista"></ul>
+      <div class="sacola__vazia" id="sacola-vazia">
+        <svg width="28" height="28" aria-hidden="true"><use href="#i-estrela"/></svg>
+        <p>Sua sacola está vazia.</p>
+        <a href="#velas" class="botao botao--contorno" data-fecha-sacola>Ver as velas</a>
+      </div>
+      <label class="sacola__obs-rotulo" for="sacola-obs">Observações <span>(opcional)</span></label>
+      <textarea id="sacola-obs" class="sacola__obs" rows="3" placeholder="Aroma, nome para personalizar, data do evento..."></textarea>
+    </div>
+
+    <div class="sacola__rodape">
+      <p class="sacola__subtotal"><span>Subtotal</span> <strong id="sacola-subtotal">R$ 0,00</strong></p>
+      <p class="sacola__nota">Frete e pagamento são combinados pelo WhatsApp.</p>
+      <button class="botao botao--whatsapp botao--largo" id="finalizar-pedido">
+        <svg width="18" height="18" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+        Finalizar pedido pelo WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- Notificação "Adicionado à sacola" -->
+  <div class="aviso-toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ===== AVISO DE COOKIES ===== -->
+  <div class="cookies" id="cookies" hidden>
+    <p>Usamos cookies e o armazenamento do navegador para guardar sua sacola e melhorar sua experiência.</p>
+    <button class="botao botao--pequeno botao--claro" id="aceitar-cookies">Entendi</button>
+  </div>
+
+  <script src="js/produtos.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
