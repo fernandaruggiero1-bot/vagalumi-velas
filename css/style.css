@@ -19,11 +19,11 @@
   --cor-rodape: #2B2620;
   --cor-selo-fundo: #EFE4CF;
   --cor-whatsapp: #25D366;
-  --cor-whatsapp-escuro: #128C4B; /* verde com contraste para texto branco */
   --cor-linha: #E4DACB;          /* linhas finas e bordas */
 
   /* Fontes */
-  --fonte-script: "Allura", "Great Vibes", cursive;
+  --fonte-script: "Dancing Script", cursive; /* fonte de destaque: a mais parecida com o "Vagalumi" da logo */
+  --peso-script: 500;
   --fonte-serifa: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --fonte-texto: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
 
@@ -42,9 +42,7 @@
   --container: 1080px;
   --gutter: 16px;
   --altura-header: 96px;   /* atualizada pelo JS conforme o cabeçalho real */
-  --altura-cookies: 0px;   /* atualizada pelo JS quando o aviso de cookies aparece */
   --transicao: 0.3s ease;
-  --sombra-suave: 0 8px 30px rgba(43, 38, 32, 0.08);
 }
 
 /* ===== BASE ===== */
@@ -157,7 +155,7 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 
 .secao__titulo--script {
   font-family: var(--fonte-script);
-  font-weight: 400;
+  font-weight: var(--peso-script);
   font-size: 2.6rem;
   letter-spacing: 0;
   text-transform: none;
@@ -199,25 +197,12 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 .botao--pequeno { min-height: 40px; padding: 0.55rem 1rem; font-size: 0.7rem; }
 .botao--largo { width: 100%; }
 
-.botao--whatsapp {
-  background: var(--cor-whatsapp-escuro);
-  border-color: var(--cor-whatsapp-escuro);
-  color: #fff;
-}
-.botao--whatsapp:hover { background: #0E7740; color: #fff; }
-
 .botao--claro {
   background: var(--cor-fundo);
   border-color: var(--cor-fundo);
   color: var(--cor-texto);
 }
 .botao--claro:hover { background: transparent; color: var(--cor-fundo); }
-
-.botao.is-pronto {
-  background: var(--cor-dourado-escuro);
-  border-color: var(--cor-dourado-escuro);
-  color: #fff;
-}
 
 .botao:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -286,59 +271,11 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 .logo { justify-self: center; display: block; }
 
 .logo__img {
-  height: 64px;
+  height: 76px;
   width: auto;
   transition: height var(--transicao);
 }
-.cabecalho.is-compacto .logo__img { height: 46px; }
-
-/* Versão do logo desenhada em código (aparece enquanto não existir logo.png) */
-.logo__texto { display: none; }
-.logo--texto .logo__texto,
-.logo__texto--claro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1;
-  color: var(--cor-texto);
-}
-.logo__simbolo { transition: width var(--transicao), height var(--transicao); }
-.logo__nome {
-  font-family: var(--fonte-script);
-  font-size: 2.1rem;
-  line-height: 0.9;
-  margin-top: -2px;
-  transition: font-size var(--transicao);
-}
-.logo__velas {
-  font-size: 0.55rem;
-  letter-spacing: 0.55em;
-  margin-right: -0.55em; /* compensa o espaçamento da última letra */
-  margin-top: 7px;
-}
-.cabecalho.is-compacto .logo__simbolo { width: 30px; height: 30px; }
-.cabecalho.is-compacto .logo__nome { font-size: 1.7rem; }
-
-.cabecalho__sacola { position: relative; }
-
-.contador {
-  position: absolute;
-  top: 4px;
-  right: 2px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
-  border-radius: 9px;
-  background: var(--cor-texto);
-  color: var(--cor-fundo);
-  font-size: 0.65rem;
-  font-weight: 500;
-  line-height: 18px;
-  text-align: center;
-  transition: transform 0.25s ease;
-}
-.contador.is-pulando { transform: scale(1.3); }
-.contador[data-vazio="true"] { background: var(--cor-dourado); color: var(--cor-texto); }
+.cabecalho.is-compacto .logo__img { height: 58px; }
 
 /* ===== MENU (gaveta no celular) ===== */
 .menu {
@@ -356,6 +293,16 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 
 .menu.is-aberto { transform: translateX(0); visibility: visible; }
 
+/* O menu mora dentro do cabeçalho: com a gaveta aberta, o cabeçalho sobe acima do fundo
+   escurecido, e sua barra sai de cena para não aparecer clara ao lado da gaveta */
+body.menu-aberto .cabecalho {
+  z-index: 85;
+  background: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+body.menu-aberto .cabecalho__barra { visibility: hidden; }
+
 .menu__topo {
   display: flex;
   align-items: center;
@@ -363,10 +310,7 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
   margin-bottom: var(--esp-5);
 }
 
-.menu__titulo {
-  font-family: var(--fonte-script);
-  font-size: 2rem;
-}
+.menu__logo { height: 84px; width: auto; }
 
 .menu__lista a {
   display: block;
@@ -405,7 +349,7 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 
 .hero__titulo {
   font-family: var(--fonte-script);
-  font-weight: 400;
+  font-weight: var(--peso-script);
   font-size: clamp(2.9rem, 12vw, 4.6rem);
   line-height: 1.05;
 }
@@ -423,17 +367,83 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
   margin-top: var(--esp-6);
 }
 
+/* Palco do vídeo: o vagalume em cima e, abaixo dele, o vídeo em proporção 3:4 com uma pontinha de chama no topo.
+   Para mudar o desenho, troque o "d" do caminho aqui e no <svg class="hero__contorno"> do index.html. */
 .hero__foto {
+  --topo-vagalume: 10.12%; /* faixa reservada ao vagalume, acima do vídeo */
   position: relative;
-  border-radius: var(--raio);
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
-  max-height: 70vh;
-  background: var(--cor-fundo-alt);
+  aspect-ratio: 400 / 593;
+  width: 100%;
+  max-width: 50vh;
+  justify-self: center;
 }
 
-/* object-fit: cover garante que a foto nunca estica */
-.hero__foto img { width: 100%; height: 100%; object-fit: cover; }
+/* object-fit: cover garante que o vídeo nunca estica */
+.hero__video {
+  position: absolute;
+  top: var(--topo-vagalume);
+  left: 0;
+  display: block;
+  width: 100%;
+  height: calc(100% - var(--topo-vagalume));
+  object-fit: cover;
+  object-position: 50% 20%; /* puxa o enquadramento para cima, onde fica o "Seja Luz" */
+  background: var(--cor-fundo-alt);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533' preserveAspectRatio='none'%3E%3Cpath d='M200 14C204 30 236 38 290 46C352 56 388 92 388 140V505C388 521 376 533 360 533H40C24 533 12 521 12 505V140C12 92 48 56 110 46C164 38 196 30 200 14Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533' preserveAspectRatio='none'%3E%3Cpath d='M200 14C204 30 236 38 290 46C352 56 388 92 388 140V505C388 521 376 533 360 533H40C24 533 12 521 12 505V140C12 92 48 56 110 46C164 38 196 30 200 14Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+
+/* Contorno dourado fino acompanhando a chama */
+.hero__contorno {
+  position: absolute;
+  top: var(--topo-vagalume);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--topo-vagalume));
+  overflow: visible;
+  pointer-events: none;
+}
+.hero__contorno path { fill: none; stroke: var(--cor-dourado); stroke-width: 1px; }
+
+/* O vagalume da logo, pairando com a gota de luz logo acima da ponta da chama */
+.hero__vagalume {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 26%;
+  margin-left: -13%;
+  animation: pairar 6s ease-in-out infinite;
+}
+
+/* Clarão suave em volta da gota de luz */
+.hero__brilho {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 40%;
+  aspect-ratio: 1;
+  margin-left: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 164, 92, 0.28), rgba(201, 164, 92, 0) 68%);
+  animation: pulsar-luz 6s ease-in-out infinite;
+}
+
+@keyframes pairar {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+@keyframes pulsar-luz {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+/* Estrelinhas no espaço livre ao redor da ponta da chama, sem cobrir o vídeo */
+.hero__estrela--1 { width: 16px; height: 16px; top: 7%; left: 12%; }
+.hero__estrela--2 { width: 11px; height: 11px; top: 9%; right: 12%; animation-delay: 1.6s; }
+.hero__estrela--3 { width: 13px; height: 13px; top: 1%; right: 24%; animation-delay: 3s; }
+.hero__ponto--1 { top: 2%; left: 30%; animation-delay: 1s; }
+.hero__ponto--2 { top: 5%; right: 8%; animation-delay: 2.4s; }
 
 /* Estrelinhas douradas piscando devagar */
 .hero__estrelas { position: absolute; inset: 0; pointer-events: none; }
@@ -444,8 +454,8 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
   animation: brilhar 4.5s ease-in-out infinite;
 }
 .estrela--1 { width: 18px; height: 18px; top: 6%;  left: 8%; }
-.estrela--2 { width: 12px; height: 12px; top: 18%; right: 10%; animation-delay: 1.2s; }
-.estrela--3 { width: 14px; height: 14px; top: 42%; left: 4%;  animation-delay: 2.4s; }
+.estrela--2 { width: 12px; height: 12px; top: 18%; right: 2%; animation-delay: 1.2s; }
+.estrela--3 { width: 14px; height: 14px; top: 26%; left: 2%;  animation-delay: 2.4s; }
 .estrela--4 { width: 10px; height: 10px; top: 3%;  right: 30%; animation-delay: 3.3s; }
 
 .pontinho {
@@ -662,21 +672,6 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
   margin-top: var(--esp-5);
 }
 
-.quantidade {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--cor-texto);
-  border-radius: var(--raio);
-  flex: 0 0 auto;
-}
-.quantidade__botao {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 46px;
-}
-.quantidade__valor { min-width: 28px; text-align: center; font-weight: 500; }
-
 .link-mais {
   margin-top: var(--esp-4);
   font-size: 0.8rem;
@@ -810,13 +805,33 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 /* ===== SOBRE A VAGALUMI ===== */
 .sobre__grade { display: grid; gap: var(--esp-6); align-items: center; }
 
+/* Foto em formato de folha, com contorno dourado deslocado e estrelinhas nos cantos curvos */
 .sobre__foto {
-  border-radius: var(--raio);
-  overflow: hidden;
+  --raio-folha: clamp(72px, 22vw, 160px);
+  position: relative;
   aspect-ratio: 4 / 5;
+  margin: 0 12px 12px 0;
+}
+
+.sobre__foto::before {
+  content: "";
+  position: absolute;
+  inset: 12px -12px -12px 12px;
+  border: 1px solid var(--cor-dourado);
+  border-radius: var(--raio) var(--raio-folha);
+}
+
+.sobre__foto img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--raio) var(--raio-folha);
   background: var(--cor-fundo-alt);
 }
-.sobre__foto img { width: 100%; height: 100%; object-fit: cover; }
+
+.sobre__estrela--1 { width: 18px; height: 18px; top: 3%; right: 2%; }
+.sobre__estrela--2 { width: 13px; height: 13px; bottom: 3%; left: 2%; animation-delay: 2s; }
 
 .sobre__texto p:not(.sobretitulo):not(.assinatura) {
   color: var(--cor-texto-suave);
@@ -825,6 +840,7 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 
 .assinatura {
   font-family: var(--fonte-script);
+  font-weight: var(--peso-script);
   font-size: 2.4rem;
   line-height: 1.1;
   margin-top: var(--esp-5);
@@ -925,7 +941,7 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 
 .newsletter__titulo {
   font-family: var(--fonte-script);
-  font-weight: 400;
+  font-weight: var(--peso-script);
   font-size: 2.7rem;
   line-height: 1.1;
 }
@@ -963,7 +979,7 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
   justify-items: center;
 }
 
-.logo__texto--claro { color: var(--cor-fundo); }
+.rodape__logo { height: 170px; width: auto; }
 
 .rodape__frase {
   margin-top: var(--esp-3);
@@ -1013,7 +1029,7 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
 .whatsapp-flutuante {
   position: fixed;
   right: 16px;
-  bottom: calc(16px + var(--altura-cookies));
+  bottom: 16px;
   z-index: 60;
   display: grid;
   place-items: center;
@@ -1044,176 +1060,6 @@ img.is-placeholder { background: var(--cor-fundo-alt); }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* Com a sacola aberta, o botão sobe e sai de cena para não ficar por cima */
-body.sacola-aberta .whatsapp-flutuante {
-  transform: translateY(-24px);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ===== SACOLA (gaveta pela direita) ===== */
-.sacola {
-  position: fixed;
-  inset: 0 0 0 auto;
-  z-index: 90;
-  display: flex;
-  flex-direction: column;
-  width: min(420px, 100%);
-  background: var(--cor-fundo);
-  box-shadow: var(--sombra-suave);
-  transform: translateX(100%);
-  visibility: hidden;
-  transition: transform var(--transicao), visibility var(--transicao);
-}
-.sacola.is-aberta { transform: translateX(0); visibility: visible; }
-
-.sacola__topo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--esp-3) var(--esp-3) var(--esp-3) var(--esp-5);
-  border-bottom: 1px solid var(--cor-linha);
-}
-
-.sacola__titulo {
-  font-family: var(--fonte-serifa);
-  font-weight: 500;
-  font-size: 1.3rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.sacola__corpo {
-  flex: 1;
-  overflow-y: auto;
-  padding: var(--esp-4) var(--esp-5);
-}
-
-.item-sacola {
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  gap: var(--esp-3);
-  padding-block: var(--esp-3);
-  border-bottom: 1px solid var(--cor-linha);
-}
-
-.item-sacola img {
-  width: 72px;
-  height: 72px;
-  object-fit: cover;
-  border-radius: var(--raio);
-  background: var(--cor-fundo-alt);
-}
-
-.item-sacola__nome {
-  font-family: var(--fonte-serifa);
-  font-weight: 600;
-  font-size: 1.05rem;
-  line-height: 1.2;
-}
-
-.item-sacola__preco { font-size: 0.82rem; color: var(--cor-texto-suave); }
-
-.item-sacola__acoes {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: var(--esp-2);
-}
-
-.item-sacola .quantidade { border-color: var(--cor-linha); }
-.item-sacola .quantidade__botao { width: 32px; height: 32px; }
-
-.item-sacola__remover {
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  color: var(--cor-texto-suave);
-  padding: var(--esp-2) 0;
-}
-
-.sacola__vazia {
-  display: grid;
-  justify-items: center;
-  gap: var(--esp-3);
-  padding-block: var(--esp-7);
-  text-align: center;
-  color: var(--cor-texto-suave);
-}
-.sacola__vazia svg { color: var(--cor-dourado); }
-
-.sacola__obs-rotulo {
-  display: block;
-  margin-top: var(--esp-5);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.sacola__obs-rotulo span { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--cor-texto-suave); }
-
-.sacola__obs {
-  width: 100%;
-  margin-top: var(--esp-2);
-  padding: var(--esp-3);
-  border: 1px solid var(--cor-linha);
-  border-radius: var(--raio);
-  background: #fff;
-  resize: vertical;
-  font-size: 0.9rem;
-}
-
-.sacola__rodape {
-  padding: var(--esp-4) var(--esp-5) var(--esp-5);
-  border-top: 1px solid var(--cor-linha);
-  background: var(--cor-fundo);
-}
-
-.sacola__subtotal {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-}
-.sacola__nota { font-size: 0.75rem; color: var(--cor-texto-suave); margin: var(--esp-1) 0 var(--esp-3); }
-
-/* ===== NOTIFICAÇÃO (toast) ===== */
-.aviso-toast {
-  position: fixed;
-  left: 50%;
-  bottom: calc(24px + var(--altura-cookies));
-  z-index: 100;
-  padding: 0.75rem 1.4rem;
-  border-radius: var(--raio);
-  background: var(--cor-texto);
-  color: var(--cor-fundo);
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translate(-50%, 16px);
-  pointer-events: none;
-  transition: opacity var(--transicao), transform var(--transicao);
-}
-.aviso-toast.is-visivel { opacity: 1; transform: translate(-50%, 0); }
-
-/* ===== AVISO DE COOKIES ===== */
-.cookies {
-  position: fixed;
-  inset: auto 0 0 0;
-  z-index: 70;
-  display: flex;
-  align-items: center;
-  gap: var(--esp-3);
-  padding: var(--esp-3) var(--gutter);
-  background: var(--cor-texto);
-  color: var(--cor-fundo);
-  font-size: 0.75rem;
-  line-height: 1.45;
-}
-.cookies p { flex: 1; }
-.cookies[hidden] { display: none; }
-
 /* ===== ANIMAÇÕES DE ENTRADA ===== */
 .js .revelar {
   opacity: 0;
@@ -1230,7 +1076,8 @@ body.sacola-aberta .whatsapp-flutuante {
     transition-duration: 0.01ms !important;
   }
   .js .revelar { opacity: 1; transform: none; }
-  .anuncio__trilho { animation: none; }
+  /* A faixa continua rolando: parada, o texto ficaria cortado em telas estreitas */
+  .anuncio .anuncio__trilho { animation-duration: 32s !important; animation-iteration-count: infinite !important; }
   .estrela, .pontinho { animation: none; opacity: 0.8; }
   .whatsapp-flutuante::after { display: none; }
 }
@@ -1284,7 +1131,6 @@ body.sacola-aberta .whatsapp-flutuante {
   .rodape__menu { flex-direction: column; justify-content: flex-start; }
   .rodape__contato { align-items: flex-start; }
 
-  .cookies { font-size: 0.8rem; }
 }
 
 /* =====================================================================
@@ -1296,8 +1142,8 @@ body.sacola-aberta .whatsapp-flutuante {
   /* Cabeçalho: logo no centro e menu em linha abaixo */
   .cabecalho__barra { padding-block: var(--esp-3) var(--esp-2); }
   .cabecalho__menu { visibility: hidden; }
-  .logo__img { height: 84px; }
-  .cabecalho.is-compacto .logo__img { height: 52px; }
+  .logo__img { height: 104px; }
+  .cabecalho.is-compacto .logo__img { height: 64px; }
 
   .menu {
     position: static;
@@ -1340,18 +1186,16 @@ body.sacola-aberta .whatsapp-flutuante {
   .hero__grade {
     grid-template-columns: 1fr 1fr;
     gap: var(--esp-8);
-    max-height: calc(90vh - var(--altura-header));
   }
   .hero__texto { text-align: left; }
   .hero__subtitulo { margin-left: 0; font-size: 1.05rem; }
   .hero__botoes { justify-content: flex-start; }
   .hero__foto {
-    aspect-ratio: auto;
-    height: min(calc(90vh - var(--altura-header) - 6rem), 640px);
-    min-height: 420px;
-    max-height: none;
+    width: auto;
+    height: clamp(460px, calc(100vh - var(--altura-header) - 6.5rem), 640px); /* cabe na primeira tela */
+    max-width: none;
   }
-  .estrela--3 { left: 46%; top: 70%; }
+  .estrela--3 { left: 46%; top: 60%; }
 
   .grade-produtos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
@@ -1380,11 +1224,8 @@ body.sacola-aberta .whatsapp-flutuante {
 
   .rodape__grade { grid-template-columns: 1.4fr 1fr 1fr; }
   .rodape__marca { grid-column: auto; justify-self: start; text-align: left; }
-  .rodape__marca .logo__texto--claro { align-items: flex-start; }
   .rodape__copy { padding-bottom: var(--esp-4); }
 
-  .cookies { justify-content: center; }
-  .cookies p { flex: 0 1 auto; }
 }
 
 /* Setas do carrossel ficam dentro da área quando a tela é estreita demais */
