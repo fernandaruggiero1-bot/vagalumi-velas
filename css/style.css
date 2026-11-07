@@ -393,6 +393,14 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533' preserveAspectRatio='none'%3E%3Cpath d='M200 14C204 30 236 38 290 46C352 56 388 92 388 140V505C388 521 376 533 360 533H40C24 533 12 521 12 505V140C12 92 48 56 110 46C164 38 196 30 200 14Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
 }
 
+/* Esconde o botão de play que alguns celulares desenham por cima do vídeo */
+.hero__video::-webkit-media-controls,
+.hero__video::-webkit-media-controls-start-playback-button,
+.hero__video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 /* Contorno dourado fino acompanhando a chama */
 .hero__contorno {
   position: absolute;

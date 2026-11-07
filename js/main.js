@@ -33,6 +33,37 @@ const WHATSAPP = "5521974799589";
     el.href = linkWhatsApp(el.dataset.whatsapp);
   });
 
+  /* ===== VÍDEO DA PRIMEIRA DOBRA =====
+     Toca sozinho quando aparece na tela, pausa fora dela e recomeça ao terminar. */
+  const videoHero = $(".hero__video");
+  if (videoHero) {
+    let naTela = false;
+    videoHero.muted = true; // alguns celulares só tocam sozinho se o vídeo estiver mudo
+
+    const tocar = () => {
+      const tentativa = videoHero.play();
+      if (tentativa) tentativa.catch(() => { /* bloqueado pelo aparelho: tenta de novo no próximo toque */ });
+    };
+
+    new IntersectionObserver((entradas) => {
+      naTela = entradas[0].isIntersecting;
+      if (naTela) tocar();
+      else videoHero.pause();
+    }, { threshold: 0.2 }).observe(videoHero);
+
+    videoHero.addEventListener("ended", () => {
+      videoHero.currentTime = 0;
+      tocar();
+    });
+
+    // Plano B (ex.: iPhone em modo de pouca bateria): o primeiro toque na página libera o vídeo
+    ["touchstart", "touchend", "pointerdown", "click", "keydown"].forEach((evento) => {
+      document.addEventListener(evento, () => {
+        if (naTela && videoHero.paused) tocar();
+      }, { passive: true });
+    });
+  }
+
   /* ===== CABEÇALHO: compacta ao rolar ===== */
   const cabecalho = $("#cabecalho");
 
