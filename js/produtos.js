@@ -5,6 +5,10 @@
    As seções Nossas Coleções e Lembranças Personalizadas são montadas
    automaticamente a partir daqui.
 
+   ➜ O QUE APARECE ONDE
+     No card: nome, "detalhe" (palavras-chave curtas) e preço.
+     Ao clicar no produto: abre a janela com "descricao" e todas as fotos.
+
    ➜ COMO EDITAR O PREÇO
      Use PONTO no lugar da vírgula (preco: 42.9 aparece como R$ 42,90)
      e escolha o tipo em "precoTipo":
@@ -24,27 +28,23 @@
 
    ➜ COMO TROCAR A FOTO
      Salve a foto em .webp na pasta indicada em "imagens" e escreva o nome
-     do arquivo. "foco" (opcional) escolhe a parte da foto que fica à vista:
-     o primeiro número é a horizontal e o segundo a vertical.
+     do arquivo. A primeira é a do card. "foco" (opcional) escolhe a parte
+     da foto que fica à vista: primeiro a horizontal, depois a vertical.
 
    ➜ OUTROS CAMPOS
      selo: texto curto no canto da foto. Use null para não mostrar.
            Use selos só quando forem verdade.
-     emBreve: true mostra o card sem preço, com o botão "Quero ser avisada".
-     mensagem: (opcional) texto do WhatsApp desse botão.
-     video: (opcional) vídeo mudo em loop no lugar da foto do card.
+     palavras: (só Significados) exemplos de palavras que já viraram vela.
+     pedePalavra: true mostra na sacola o campo "Qual palavra?".
    ===================================================================== */
 
-/* Faixas de título das coleções. "nota" e "chamada" são opcionais. */
+/* Títulos das coleções */
 const COLECOES = [
   {
     id: "pontos-de-luz",
     nome: "Pontos de Luz",
     frase: "Velas decorativas para acender um cantinho da sua casa.",
-    videos: [
-      { src: "assets/video/pontos-de-luz.mp4", poster: "assets/video/pontos-de-luz-poster.webp", largura: 720, altura: 714, rotulo: "Velas Chá Branco & Bambu e Lavanda Inglesa sobre uma mesa de madeira" },
-      { src: "assets/video/decorativas-caixa-coracao.mp4", poster: "assets/video/decorativas-caixa-coracao-poster.webp", largura: 430, altura: 724, rotulo: "Caixa de presente em formato de coração ao lado de uma sacola kraft" }
-    ],
+    // Aparece na janela de detalhes dos produtos desta coleção.
     // [CONFIRMAR COM A GABI]: Lavanda Inglesa aparece nos stories, mas não no catálogo.
     nota: "Aromas da casa: Chá Branco & Bambu · Tâmaras & Damasco · Cereja & Avelã · Flor de Cerejeira & Ameixa · Lavanda Inglesa"
   },
@@ -52,8 +52,9 @@ const COLECOES = [
     id: "significados",
     nome: "Significados",
     frase: "Velas que traduzem o que não conseguimos dizer em palavras.",
-    chamada: {
-      texto: "Tem uma palavra que merece virar vela? Conta pra gente.",
+    produtoUnico: true,
+    imagemAdicional: "assets/img/produtos/adicional-sacola.webp",
+    sugestao: {
       botao: "Sugerir uma palavra",
       mensagem: "Olá, Gabi! Tenho uma palavra que merece virar vela: "
     }
@@ -71,13 +72,12 @@ const PRODUTOS = [
     id: "redoma",
     nome: "Redoma",
     colecao: "pontos-de-luz",
-    detalhe: "Cera 100% vegetal · produto artesanal",
-    descricao: "Nossa peça mais icônica: vidro arredondado, tampa de cortiça em esfera e pavio de madeira. Uma vela que decora mesmo apagada.",
+    detalhe: "Tampa de cortiça · pavio de madeira",
+    descricao: "Nossa peça mais icônica: vidro arredondado, tampa de cortiça em esfera e pavio de madeira. Uma vela que decora mesmo apagada. Cera 100% vegetal, produto artesanal.",
     preco: 89.9,
     precoTipo: "fixo",
     unidade: false,
     selo: "A MAIS VENDIDA",
-    emBreve: false,
     imagens: ["assets/img/produtos/redoma.webp"],
     foco: "50% 82%"
   },
@@ -91,7 +91,6 @@ const PRODUTOS = [
     precoTipo: "fixo",
     unidade: false,
     selo: null,
-    emBreve: false,
     imagens: ["assets/img/produtos/tamaras-damasco.webp"]
   },
   {
@@ -105,39 +104,24 @@ const PRODUTOS = [
     precoTipo: "consulta",
     unidade: false,
     selo: null,
-    emBreve: false,
     imagens: ["assets/img/produtos/potes-de-cristal.webp"]
   },
 
-  /* ===== COLEÇÃO SIGNIFICADOS ===== */
+  /* ===== COLEÇÃO SIGNIFICADOS: um produto só, com a palavra que a pessoa escolher ===== */
   {
-    id: "lar",
-    nome: "Lar",
+    id: "vela-significados",
+    nome: "Vela Significados",
     subtitulo: "Vela com significado",
     colecao: "significados",
     detalhe: "Cera 100% vegetal · tampa de madeira com laço de fita",
-    descricao: "Cada vela traz no rótulo o significado de uma palavra que importa. A primeira é Lar: onde o coração está, refúgio, pertencer.",
+    descricao: "Cada vela traz no rótulo o significado de uma palavra que importa. Lar, Fé, Amizade e Família são algumas que já viraram vela, e você pode sugerir a sua.",
+    palavras: ["Lar", "Fé", "Amizade", "Família"],
+    pedePalavra: true,
     preco: 39.9,
     precoTipo: "fixo",
     unidade: false,
     selo: null,
-    emBreve: false,
-    imagens: ["assets/img/produtos/lar.webp"]
-  },
-  {
-    id: "amizade-fe-familia",
-    nome: "Amizade, Fé e Família",
-    colecao: "significados",
-    detalhe: "",
-    descricao: "",
-    preco: null,
-    precoTipo: "consulta",
-    unidade: false,
-    selo: "EM BREVE",
-    emBreve: true,
-    mensagem: "Olá, Gabi! Quero ser avisada quando as velas Amizade, Fé e Família chegarem ✨",
-    imagens: ["assets/img/produtos/significados-em-breve.webp"],
-    foco: "50% 66%"
+    imagens: ["assets/img/produtos/significados-palavras.webp", "assets/img/produtos/lar.webp"]
   },
 
   /* ===== COLEÇÃO MOMENTO PAUSA ===== */
@@ -145,26 +129,24 @@ const PRODUTOS = [
     id: "kit-momento-pausa",
     nome: "Kit Momento Pausa",
     colecao: "momento-pausa",
-    detalhe: "",
+    detalhe: "Vela + sabonete ou escalda-pés · caixa de presente",
     descricao: "Vela em pote com tampa de madeira e laço de fita, sabonete de glicerina ou escalda-pés, tudo em uma caixa de presente com potinho de fósforo. Fitas e aromas variam conforme o kit.",
     preco: 39.9,
     precoTipo: "a_partir",
     unidade: false,
     selo: "PRONTO PARA PRESENTEAR",
-    emBreve: false,
     imagens: ["assets/img/produtos/kit-momento-pausa.webp"]
   },
   {
     id: "kit-banheiro-chique",
     nome: "Kit Banheiro Chique",
     colecao: "momento-pausa",
-    detalhe: "Aromas Plenitude · Essência",
+    detalhe: "3 peças · aromas Plenitude · Essência",
     descricao: "Três peças para deixar o banheiro elegante e perfumado: vela aromática, sabonete líquido com o mesmo aroma e bandeja de madeira.",
     preco: 99.9,
     precoTipo: "fixo",
     unidade: false,
     selo: null,
-    emBreve: false,
     imagens: ["assets/img/produtos/kit-banheiro-chique.webp"]
   },
 
@@ -179,7 +161,6 @@ const PRODUTOS = [
     precoTipo: "a_partir",
     unidade: true,
     selo: null,
-    emBreve: false,
     imagens: ["assets/img/lembrancas/vela-lata-organza.webp"]
   },
   {
@@ -192,7 +173,6 @@ const PRODUTOS = [
     precoTipo: "a_partir",
     unidade: true,
     selo: null,
-    emBreve: false,
     imagens: ["assets/img/lembrancas/vela-vidro-jateado.webp"]
   },
   {
@@ -205,7 +185,6 @@ const PRODUTOS = [
     precoTipo: "consulta",
     unidade: false,
     selo: null,
-    emBreve: false,
     imagens: ["assets/img/lembrancas/alcool-gel.webp"]
   },
   {
@@ -218,7 +197,6 @@ const PRODUTOS = [
     precoTipo: "a_partir",
     unidade: true,
     selo: null,
-    emBreve: false,
     imagens: ["assets/img/lembrancas/lembrancinha-card.webp"]
   },
 
@@ -233,7 +211,6 @@ const PRODUTOS = [
     precoTipo: "a_partir",
     unidade: false,
     selo: null,
-    emBreve: false,
     imagens: ["assets/img/lembrancas/valei-me-sao-jose.webp"]
   }
 ];

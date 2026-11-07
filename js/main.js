@@ -62,8 +62,8 @@ const WHATSAPP = "5521974799589";
   });
   ligarWhatsApp();
 
-  /* ===== VÍDEOS =====
-     Tocam sozinhos quando aparecem na tela, pausam fora dela e recomeçam ao terminar. */
+  /* ===== VÍDEO DA PRIMEIRA DOBRA =====
+     Toca sozinho quando aparecem na tela, pausam fora dela e recomeçam ao terminar. */
   function iniciarVideo(video) {
     let naTela = false;
     video.muted = true; // alguns celulares só tocam sozinho se o vídeo estiver mudo
@@ -132,11 +132,11 @@ const WHATSAPP = "5521974799589";
     gavetaAberta = { gaveta, botaoAbrir };
     focoAnterior = document.activeElement;
 
-    gaveta.classList.add(gaveta.id === "sacola" ? "is-aberta" : "is-aberto");
+    gaveta.classList.add(gaveta.id === "menu-principal" ? "is-aberto" : "is-aberta");
     gaveta.setAttribute("aria-hidden", "false");
     gaveta.inert = false;
     if (botaoAbrir) botaoAbrir.setAttribute("aria-expanded", "true");
-    document.body.classList.add(gaveta.id === "sacola" ? "sacola-aberta" : "menu-aberto");
+    document.body.classList.add(gaveta.id === "menu-principal" ? "menu-aberto" : "sacola-aberta");
 
     fundoEscuro.hidden = false;
     requestAnimationFrame(() => fundoEscuro.classList.add("is-visivel"));
@@ -152,7 +152,7 @@ const WHATSAPP = "5521974799589";
 
     gaveta.classList.remove("is-aberta", "is-aberto");
     gaveta.setAttribute("aria-hidden", "true");
-    if (gaveta.id === "sacola" || !desktop.matches) gaveta.inert = true;
+    if (gaveta.id !== "menu-principal" || !desktop.matches) gaveta.inert = true;
     if (botaoAbrir) botaoAbrir.setAttribute("aria-expanded", "false");
     document.body.classList.remove("sacola-aberta", "menu-aberto", "trava-rolagem");
 
@@ -219,88 +219,95 @@ const WHATSAPP = "5521974799589";
 
   /* ===== CATÁLOGO: montado a partir de js/produtos.js ===== */
   function botaoDoProduto(p) {
-    if (p.emBreve) {
-      return `<a class="botao botao--contorno" target="_blank" rel="noopener" data-whatsapp="${escaparHTML(p.mensagem || "Olá, Gabi! Quero ser avisada quando " + p.nome + " chegar ✨")}">Quero ser avisada</a>`;
-    }
     if (temPrecoFixo(p)) {
       return `<button class="botao" data-adicionar="${p.id}">Adicionar à sacola</button>`;
     }
     return `<a class="botao botao--contorno" target="_blank" rel="noopener" data-whatsapp="${escaparHTML("Olá, Gabi! Vim pelo site e quero um orçamento de " + p.nome + ".")}">Quero orçamento</a>`;
   }
 
-  function montarMidia(p) {
-    const nome = escaparHTML(p.nome);
-    const foto = (p.imagens && p.imagens[0]) || "assets/img/placeholder.svg";
-    const foco = p.foco ? ` style="object-position: ${p.foco}"` : "";
-    if (p.video) {
-      return `<video data-auto autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="${foto}" aria-label="${nome}"${foco}><source src="${p.video}" type="video/mp4"></video>`;
-    }
-    return `<img src="${foto}" alt="${nome}" width="800" height="1000" loading="lazy"${foco}>`;
-  }
+  const fotoDoProduto = (p) => (p.imagens && p.imagens[0]) || "assets/img/placeholder.svg";
+  const estiloFoco = (p) => (p.foco ? ` style="object-position: ${p.foco}"` : "");
 
+  // No card, só o essencial: nome, palavras-chave e preço. O resto abre ao clicar no produto.
   function montarCard(p, classe = "") {
+    const nome = escaparHTML(p.nome);
     return `
       <li class="card revelar ${classe}">
-        <div class="card__foto">
+        <button class="card__foto" type="button" data-detalhes="${p.id}" aria-label="Ver detalhes de ${nome}">
           ${p.selo ? `<span class="selo">${escaparHTML(p.selo)}</span>` : ""}
-          ${montarMidia(p)}
-        </div>
+          <img src="${fotoDoProduto(p)}" alt="${nome}" width="800" height="1000" loading="lazy"${estiloFoco(p)}>
+        </button>
         <div class="card__corpo">
-          <h4 class="card__nome">${escaparHTML(p.nome)}</h4>
-          ${p.subtitulo ? `<p class="card__subtitulo">${escaparHTML(p.subtitulo)}</p>` : ""}
-          ${p.descricao ? `<p class="card__descricao">${escaparHTML(p.descricao)}</p>` : ""}
+          <h4 class="card__nome"><button type="button" data-detalhes="${p.id}">${nome}</button></h4>
           ${p.detalhe ? `<p class="card__detalhe">${escaparHTML(p.detalhe)}</p>` : ""}
-          ${p.emBreve ? "" : `<p class="card__preco${p.precoTipo === "consulta" ? " card__preco--consulta" : ""}">${textoPreco(p)}</p>`}
+          <p class="card__preco${p.precoTipo === "consulta" ? " card__preco--consulta" : ""}">${textoPreco(p)}</p>
           <div class="card__acoes">${botaoDoProduto(p)}</div>
+          <button class="card__mais" type="button" data-detalhes="${p.id}">Ver detalhes</button>
         </div>
       </li>`;
   }
 
-  const montarVideoFaixa = (v, i) => `
-    <video class="faixa__video${i === 0 ? "" : " faixa__video--estreito"}" data-auto autoplay muted loop playsinline webkit-playsinline preload="metadata"
-           poster="${v.poster}" width="${v.largura}" height="${v.altura}" aria-label="${escaparHTML(v.rotulo)}">
-      <source src="${v.src}" type="video/mp4">
-    </video>`;
-
-  // Nossas Coleções: cada coleção com a faixa de título, os cards e os blocos extras
-  const gruposColecoes = $("#colecoes-grupos");
-  gruposColecoes.innerHTML = colecoes.map((c) => `
-    <section class="colecao" id="${c.id}" data-colecao="${c.id}" aria-labelledby="titulo-${c.id}">
-      <header class="faixa revelar${c.videos ? " faixa--midia" : ""}">
-        <div class="faixa__textos">
-          <h3 class="faixa__nome" id="titulo-${c.id}">${escaparHTML(c.nome)}</h3>
-          <p class="faixa__frase">${escaparHTML(c.frase)}</p>
+  // Coleção de um produto só (Significados), com as palavras e o adicional de presente
+  function montarProdutoUnico(c, p) {
+    const nome = escaparHTML(p.nome);
+    return `
+      <article class="unico revelar">
+        <button class="unico__foto" type="button" data-detalhes="${p.id}" aria-label="Ver detalhes de ${nome}">
+          <img src="${fotoDoProduto(p)}" alt="Velas com os rótulos Amizade, Fé e Família" width="1200" height="800" loading="lazy">
+        </button>
+        <div class="unico__texto">
+          <h4 class="unico__nome"><button type="button" data-detalhes="${p.id}">${nome}</button></h4>
+          <p class="card__detalhe">${escaparHTML(p.detalhe)}</p>
+          <p class="unico__preco">${textoPreco(p)}</p>
+          <p class="unico__rotulo">Palavras que já viraram vela</p>
+          <ul class="unico__palavras">${p.palavras.map((x) => `<li>${escaparHTML(x)}</li>`).join("")}</ul>
+          <p class="unico__convite">Tem uma palavra que merece virar vela? Conta pra gente.</p>
+          <div class="unico__botoes">
+            ${botaoDoProduto(p)}
+            <a class="botao botao--contorno" target="_blank" rel="noopener" data-whatsapp="${escaparHTML(c.sugestao.mensagem)}">${escaparHTML(c.sugestao.botao)}</a>
+          </div>
         </div>
-        ${c.videos ? `<div class="faixa__videos">${c.videos.map(montarVideoFaixa).join("")}</div>` : ""}
+        <div class="adicional">
+          <div>
+            <p class="adicional__rotulo">Adicional de sacola pra presente + caixa com laço</p>
+            <p class="adicional__preco">${formatarPreco(ADICIONAL_PRESENTE)}</p>
+          </div>
+          <img src="${c.imagemAdicional}" alt="Mão segurando sacola kraft com caixa de presente e laço" width="799" height="548" loading="lazy">
+        </div>
+      </article>`;
+  }
+
+  // Nossas Coleções
+  const gruposColecoes = $("#colecoes-grupos");
+  gruposColecoes.innerHTML = colecoes.map((c) => {
+    const lista = catalogo.filter((p) => p.colecao === c.id);
+    return `
+    <section class="colecao" id="${c.id}" data-colecao="${c.id}" aria-labelledby="titulo-${c.id}">
+      <header class="faixa revelar">
+        <h3 class="faixa__nome" id="titulo-${c.id}">${escaparHTML(c.nome)}</h3>
+        <p class="faixa__frase">${escaparHTML(c.frase)}</p>
       </header>
-      <ul class="grade-colecao">
-        ${catalogo.filter((p) => p.colecao === c.id).map((p) => montarCard(p)).join("")}
-      </ul>
-      ${c.nota ? `<p class="nota-centro revelar">${escaparHTML(c.nota)}</p>` : ""}
-      ${c.chamada ? `
-        <div class="chamada revelar">
-          <p class="chamada__texto">${escaparHTML(c.chamada.texto)}</p>
-          <a class="botao botao--contorno" target="_blank" rel="noopener" data-whatsapp="${escaparHTML(c.chamada.mensagem)}">${escaparHTML(c.chamada.botao)}</a>
-        </div>` : ""}
-    </section>`).join("");
+      ${c.produtoUnico
+        ? montarProdutoUnico(c, lista[0])
+        : `<ul class="vitrine vitrine--${lista.length}">${lista.map((p) => montarCard(p)).join("")}</ul>`}
+    </section>`;
+  }).join("");
 
   // Lembranças Personalizadas e Brilho da Fé
   $("#lembrancas-grade").innerHTML = catalogo.filter((p) => p.colecao === "lembrancas").map((p) => montarCard(p, "card--lado")).join("");
 
   $("#brilho-card").innerHTML = catalogo.filter((p) => p.colecao === "brilho-da-fe").map((p) => `
     <article class="fe__card revelar">
-      <div class="fe__foto">
-        <img src="${p.imagens[0]}" alt="${escaparHTML(p.nome)}" width="929" height="1200" loading="lazy">
-        <svg class="fe__contorno" viewBox="0 0 400 533" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <path transform="translate(200 270) scale(1.03) translate(-200 -270)" vector-effect="non-scaling-stroke" d="M200 14C204 30 236 38 290 46C352 56 388 92 388 140V505C388 521 376 533 360 533H40C24 533 12 521 12 505V140C12 92 48 56 110 46C164 38 196 30 200 14Z"/>
-        </svg>
-      </div>
+      <button class="fe__foto" type="button" data-detalhes="${p.id}" aria-label="Ver detalhes de ${escaparHTML(p.nome)}">
+        <svg class="fe__estrela" width="20" height="20" aria-hidden="true"><use href="#i-estrela"/></svg>
+        <img src="${fotoDoProduto(p)}" alt="${escaparHTML(p.nome)}" width="929" height="1200" loading="lazy">
+      </button>
       <div class="fe__texto">
-        <h4 class="fe__nome">${escaparHTML(p.nome)}</h4>
+        <h4 class="fe__nome"><button type="button" data-detalhes="${p.id}">${escaparHTML(p.nome)}</button></h4>
         <p class="card__detalhe">${escaparHTML(p.detalhe)}</p>
-        <p class="card__descricao">${escaparHTML(p.descricao)}</p>
         <p class="card__preco">${textoPreco(p)}</p>
         ${botaoDoProduto(p)}
+        <button class="card__mais" type="button" data-detalhes="${p.id}">Ver detalhes</button>
       </div>
     </article>`).join("");
 
@@ -328,7 +335,54 @@ const WHATSAPP = "5521974799589";
     $$(`a[href="${ancora}"]`).forEach((link) => link.addEventListener("click", () => aplicarFiltro("todas")));
   });
 
-  $("#colecoes").addEventListener("click", (e) => {
+  /* ===== DETALHES DO PRODUTO ===== */
+  const modalProduto = $("#produto-modal");
+  const corpoModal = $("#produto-modal-corpo");
+  modalProduto.inert = true;
+
+  function abrirDetalhes(id, gatilho) {
+    const p = buscarProduto(id);
+    if (!p) return;
+    const colecao = colecoes.find((c) => c.id === p.colecao);
+    const nome = escaparHTML(p.nome);
+    const fotos = p.imagens || [];
+
+    corpoModal.innerHTML = `
+      <div class="produto-modal__midia">
+        <img id="produto-modal-foto" src="${fotoDoProduto(p)}" alt="${nome}"${estiloFoco(p)}>
+        ${fotos.length > 1 ? `<div class="produto-modal__miniaturas">${fotos.map((f, i) => `
+          <button type="button" data-foto="${f}" aria-label="Ver foto ${i + 1} de ${nome}"><img src="${f}" alt=""></button>`).join("")}</div>` : ""}
+      </div>
+      <div class="produto-modal__info">
+        ${p.selo ? `<span class="selo selo--inline">${escaparHTML(p.selo)}</span>` : ""}
+        <h2 class="produto-modal__nome" id="produto-modal-nome">${nome}</h2>
+        ${p.subtitulo ? `<p class="card__subtitulo">${escaparHTML(p.subtitulo)}</p>` : ""}
+        ${p.detalhe ? `<p class="card__detalhe">${escaparHTML(p.detalhe)}</p>` : ""}
+        <p class="produto-modal__preco">${textoPreco(p)}</p>
+        ${p.descricao ? `<p class="produto-modal__descricao">${escaparHTML(p.descricao)}</p>` : ""}
+        ${colecao && colecao.nota ? `<p class="produto-modal__nota">${escaparHTML(colecao.nota)}</p>` : ""}
+        ${temPrecoFixo(p) ? `<p class="produto-modal__nota">Opcional na sacola: sacola pra presente + caixa com laço (+ ${formatarPreco(ADICIONAL_PRESENTE)})</p>` : ""}
+        <div class="produto-modal__acao">${botaoDoProduto(p)}</div>
+      </div>`;
+    ligarWhatsApp(corpoModal);
+    abrirGaveta(modalProduto, null);
+    if (gatilho) focoAnterior = gatilho;
+  }
+
+  $("#fechar-produto").addEventListener("click", () => fecharGaveta());
+
+  corpoModal.addEventListener("click", (e) => {
+    const miniatura = e.target.closest("[data-foto]");
+    if (miniatura) $("#produto-modal-foto").src = miniatura.dataset.foto;
+  });
+
+  // Cliques nos produtos, em qualquer seção
+  document.addEventListener("click", (e) => {
+    const detalhes = e.target.closest("[data-detalhes]");
+    if (detalhes) {
+      abrirDetalhes(detalhes.dataset.detalhes, detalhes);
+      return;
+    }
     const botao = e.target.closest("[data-adicionar]");
     if (botao) adicionarNaSacola(botao.dataset.adicionar, botao);
   });
@@ -388,6 +442,11 @@ const WHATSAPP = "5521974799589";
               <input type="checkbox" data-presente${item.presente ? " checked" : ""}>
               <span>Sacola pra presente + caixa com laço (+ ${formatarPreco(ADICIONAL_PRESENTE)})</span>
             </label>
+            ${p.pedePalavra ? `
+            <label class="item-sacola__palavra">
+              <span>Qual palavra vai na sua vela?</span>
+              <input type="text" data-palavra maxlength="40" placeholder="Ex.: ${escaparHTML(p.palavras.join(", "))}" value="${escaparHTML(item.palavra || "")}">
+            </label>` : ""}
           </div>
         </li>`;
     }).join("");
@@ -441,6 +500,14 @@ const WHATSAPP = "5521974799589";
     subtotalEl.textContent = formatarPreco(subtotal());
   });
 
+  listaSacola.addEventListener("input", (e) => {
+    if (!e.target.matches("[data-palavra]")) return;
+    const item = itens.find((i) => i.id === e.target.closest(".item-sacola").dataset.id);
+    if (!item) return;
+    item.palavra = e.target.value;
+    salvarSacola();
+  });
+
   function adicionarNaSacola(id, botao) {
     if (!temPrecoFixo(buscarProduto(id))) return;
 
@@ -482,8 +549,9 @@ const WHATSAPP = "5521974799589";
 
     const linhas = itens.map((item) => {
       const p = buscarProduto(item.id);
+      const palavra = item.palavra && item.palavra.trim() ? ` (palavra: ${item.palavra.trim()})` : "";
       const presente = item.presente ? " (com sacola pra presente + caixa com laço)" : "";
-      return `• ${item.qtd}x ${p.nome}${presente} – ${formatarPreco(valorDoItem(item))}`;
+      return `• ${item.qtd}x ${p.nome}${palavra}${presente} – ${formatarPreco(valorDoItem(item))}`;
     });
 
     const observacoes = obs.value.trim();
@@ -508,15 +576,17 @@ const WHATSAPP = "5521974799589";
     timerToast = setTimeout(() => toast.classList.remove("is-visivel"), 2200);
   }
 
-  /* ===== CARROSSEL DE DEPOIMENTOS ===== */
-  const trilho = $("#carrossel");
-  $$("[data-carrossel]").forEach((seta) => {
-    seta.addEventListener("click", () => {
-      const card = $(".depoimento", trilho);
-      const passo = card ? card.offsetWidth + 12 : trilho.clientWidth;
-      trilho.scrollBy({ left: passo * Number(seta.dataset.carrossel), behavior: reduzMovimento ? "auto" : "smooth" });
+  /* ===== DEPOIMENTOS: rolagem infinita =====
+     A lista é repetida 4 vezes e a animação anda exatamente uma lista (25%), então nunca aparece emenda. */
+  const trilhoPolaroides = $("#polaroides");
+  const polaroidesOriginais = Array.from(trilhoPolaroides.children);
+  for (let i = 0; i < 3; i++) {
+    polaroidesOriginais.forEach((item) => {
+      const copia = item.cloneNode(true);
+      copia.setAttribute("aria-hidden", "true");
+      trilhoPolaroides.appendChild(copia);
     });
-  });
+  }
 
   /* ===== NEWSLETTER =====
      Se o form tiver um action (Formspree), envia por fetch sem sair da página.
@@ -574,7 +644,7 @@ const WHATSAPP = "5521974799589";
   /* ===== INÍCIO ===== */
   renderizarSacola();
   observarRevelar($$(".revelar"));
-  $$(".hero__video, video[data-auto]").forEach(iniciarVideo);
+  $$(".hero__video").forEach(iniciarVideo);
 
   // Se a pessoa chegou por um link direto (ex.: #significados), rola até lá depois de montar as coleções
   if (location.hash && $(location.hash)) $(location.hash).scrollIntoView();
