@@ -19,7 +19,11 @@
   --cor-rodape: #2B2620;
   --cor-selo-fundo: #EFE4CF;
   --cor-whatsapp: #25D366;
+  --cor-whatsapp-escuro: #128C4B; /* verde com contraste para texto branco */
   --cor-linha: #E4DACB;          /* linhas finas e bordas */
+
+  /* Arco com ponta de chama, usado no vídeo e na foto do Natal Luz */
+  --forma-chama: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533' preserveAspectRatio='none'%3E%3Cpath d='M200 14C204 30 236 38 290 46C352 56 388 92 388 140V505C388 521 376 533 360 533H40C24 533 12 521 12 505V140C12 92 48 56 110 46C164 38 196 30 200 14Z'/%3E%3C/svg%3E");
 
   /* Fontes */
   --fonte-script: "Dancing Script", cursive; /* fonte de destaque: a mais parecida com o "Vagalumi" da logo */
@@ -43,6 +47,7 @@
   --gutter: 16px;
   --altura-header: 96px;   /* atualizada pelo JS conforme o cabeçalho real */
   --transicao: 0.3s ease;
+  --sombra-suave: 0 8px 30px rgba(43, 38, 32, 0.08);
 }
 
 /* ===== BASE ===== */
@@ -321,6 +326,14 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   text-transform: uppercase;
 }
 
+.menu__seta { display: none; }
+
+.submenu a {
+  padding-left: var(--esp-5);
+  font-size: 0.78rem;
+  color: var(--cor-texto-suave);
+}
+
 .fundo-escuro {
   position: fixed;
   inset: 0;
@@ -389,8 +402,8 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   object-fit: cover;
   object-position: 50% 20%; /* puxa o enquadramento para cima, onde fica o "Seja Luz" */
   background: var(--cor-fundo-alt);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533' preserveAspectRatio='none'%3E%3Cpath d='M200 14C204 30 236 38 290 46C352 56 388 92 388 140V505C388 521 376 533 360 533H40C24 533 12 521 12 505V140C12 92 48 56 110 46C164 38 196 30 200 14Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533' preserveAspectRatio='none'%3E%3Cpath d='M200 14C204 30 236 38 290 46C352 56 388 92 388 140V505C388 521 376 533 360 533H40C24 533 12 521 12 505V140C12 92 48 56 110 46C164 38 196 30 200 14Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  -webkit-mask: var(--forma-chama) center / 100% 100% no-repeat;
+  mask: var(--forma-chama) center / 100% 100% no-repeat;
 }
 
 /* Esconde o botão de play que alguns celulares desenham por cima do vídeo */
@@ -508,7 +521,7 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
 
 .beneficio__icone { color: var(--cor-dourado-escuro); }
 
-/* ===== QUERIDINHAS DA VAGALUMI (catálogo) ===== */
+/* ===== NOSSAS COLEÇÕES ===== */
 .filtros {
   display: flex;
   gap: var(--esp-2);
@@ -534,184 +547,80 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
 .filtro:hover { border-color: var(--cor-texto); color: var(--cor-texto); }
 .filtro.is-ativo { background: var(--cor-texto); border-color: var(--cor-texto); color: var(--cor-fundo); }
 
-.grade-produtos {
+/* Faixa de título de cada coleção */
+.colecao + .colecao { margin-top: var(--esp-8); }
+
+.faixa {
+  text-align: center;
+  padding-block: var(--esp-4);
+  margin-bottom: var(--esp-5);
+  border-block: 1px solid var(--cor-linha);
+}
+
+.faixa__nome {
+  font-family: var(--fonte-serifa);
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.faixa__nome--centro { text-align: center; margin: var(--esp-7) 0 var(--esp-5); }
+
+.faixa__frase {
+  margin-top: var(--esp-1);
+  font-family: var(--fonte-serifa);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--cor-texto-suave);
+}
+
+/* Vídeos ao lado do texto na faixa de Pontos de Luz */
+.faixa--midia { display: grid; gap: var(--esp-4); }
+
+.faixa__videos {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--esp-6) var(--esp-3);
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: minmax(0, 1fr); /* mantém os vídeos dentro da altura da faixa */
+  gap: var(--esp-2);
+  height: 210px;
+}
+
+.faixa__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: var(--raio);
+  background: var(--cor-fundo-alt);
+}
+
+/* Grade em flex: a última linha incompleta fica centralizada, sem buracos */
+.grade-colecao {
+  --colunas: 2;
+  --vao: var(--esp-3);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--esp-6) var(--vao);
+}
+
+.grade-colecao .card {
+  width: calc((100% - var(--vao) * (var(--colunas) - 1)) / var(--colunas));
 }
 
 .card { display: flex; flex-direction: column; }
 
 .card__foto {
   position: relative;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border-radius: var(--raio);
-  background: var(--cor-fundo-alt);
-  margin-bottom: var(--esp-3);
-}
-
-.card__foto img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease, opacity 0.5s ease;
-}
-
-.card__foto .card__foto-2 { opacity: 0; }
-
-.selo {
-  position: absolute;
-  top: var(--esp-2);
-  left: var(--esp-2);
-  z-index: 1;
-  padding: 0.25rem 0.55rem;
-  border-radius: var(--raio);
-  background: var(--cor-selo-fundo);
-  color: var(--cor-texto);
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-}
-
-.card__nome {
-  font-family: var(--fonte-serifa);
-  font-weight: 600;
-  font-size: 1.15rem;
-  line-height: 1.2;
-}
-
-.card__notas {
-  font-size: 0.75rem;
-  color: var(--cor-texto-suave);
-  margin-top: var(--esp-1);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card__preco {
-  margin-top: var(--esp-2);
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-.card__preco--consulta { color: var(--cor-dourado-texto); font-size: 0.8rem; letter-spacing: 0.04em; }
-
-.card .botao {
-  margin-top: auto;
-  padding-inline: 0.6rem;
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-}
-.card__acoes { margin-top: var(--esp-3); display: flex; flex: 1; align-items: flex-end; }
-.card__acoes .botao { width: 100%; }
-
-.grade-produtos__vazia {
-  grid-column: 1 / -1;
-  text-align: center;
-  color: var(--cor-texto-suave);
-}
-
-/* Zoom e troca de foto só em aparelhos com mouse */
-@media (hover: hover) {
-  .card:hover .card__foto img { transform: scale(1.05); }
-  .card:hover .card__foto--dupla .card__foto-2 { opacity: 1; }
-}
-
-/* ===== PRODUTO EM DESTAQUE ===== */
-.destaque__grade {
-  display: grid;
-  gap: var(--esp-6);
-  align-items: center;
-}
-
-.destaque__foto {
-  border-radius: var(--raio);
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  background: var(--cor-fundo);
-}
-.destaque__foto img { width: 100%; height: 100%; object-fit: cover; }
-
-.destaque__nome {
-  font-family: var(--fonte-serifa);
-  font-weight: 500;
-  font-size: 2.1rem;
-  line-height: 1.15;
-}
-
-.destaque__preco {
-  font-size: 1.15rem;
-  font-weight: 500;
-  margin-top: var(--esp-2);
-}
-
-.destaque__descricao { color: var(--cor-texto-suave); margin-top: var(--esp-4); }
-
-.destaque__subtitulo {
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-top: var(--esp-5);
-}
-
-.destaque__itens { margin-top: var(--esp-2); }
-.destaque__itens li {
-  position: relative;
-  padding-left: 1.3rem;
-  margin-top: var(--esp-1);
-  font-size: 0.92rem;
-}
-.destaque__itens li::before {
-  content: "✦";
-  position: absolute;
-  left: 0;
-  color: var(--cor-dourado);
-  font-size: 0.75rem;
-  top: 0.15em;
-}
-
-.destaque__compra {
-  display: flex;
-  gap: var(--esp-3);
-  margin-top: var(--esp-5);
-}
-
-.link-mais {
-  margin-top: var(--esp-4);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: var(--cor-dourado);
-}
-
-.destaque__mais {
-  margin-top: var(--esp-3);
-  font-size: 0.9rem;
-  color: var(--cor-texto-suave);
-}
-.destaque__mais p + p { margin-top: var(--esp-3); }
-
-/* ===== PERSONALIZADOS ===== */
-.ocasioes {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--esp-3);
-}
-
-.ocasiao {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--raio);
-  background: var(--cor-fundo-alt);
   aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--raio);
+  background: var(--cor-fundo-alt);
 }
 
-.ocasiao img {
+.card__foto img,
+.card__foto video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -720,51 +629,301 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   transition: transform 0.6s ease;
 }
 
-.ocasiao__info {
+.selo {
   position: absolute;
-  inset: auto 0 0 0;
-  padding: var(--esp-6) var(--esp-3) var(--esp-3);
-  background: linear-gradient(to top, rgba(251, 248, 243, 0.96) 55%, rgba(251, 248, 243, 0));
-  text-align: center;
+  top: var(--esp-2);
+  left: var(--esp-2);
+  right: var(--esp-2);
+  width: fit-content;
+  z-index: 1;
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--raio);
+  background: var(--cor-selo-fundo);
+  color: var(--cor-texto);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
 }
 
-.ocasiao__nome {
+.card__corpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-top: var(--esp-3);
+}
+
+.card__nome {
+  margin: 0;
   font-family: var(--fonte-serifa);
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.2;
-  margin-bottom: var(--esp-2);
 }
 
-.ocasiao .botao { width: 100%; padding-inline: 0.4rem; }
+.card__subtitulo {
+  margin-top: var(--esp-1);
+  font-family: var(--fonte-serifa);
+  font-style: italic;
+  color: var(--cor-texto-suave);
+}
+
+.card__descricao {
+  margin-top: var(--esp-2);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--cor-texto-suave);
+}
+
+.card__detalhe {
+  margin-top: var(--esp-2);
+  font-size: 0.74rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--cor-dourado-texto);
+}
+
+.card__preco {
+  margin-top: var(--esp-2);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.card__preco--consulta { color: var(--cor-dourado-texto); font-size: 0.82rem; letter-spacing: 0.04em; }
+
+.card__acoes { display: flex; flex: 1; align-items: flex-end; margin-top: var(--esp-3); }
+.card__acoes .botao { width: 100%; padding-inline: 0.6rem; font-size: 0.68rem; letter-spacing: 0.08em; }
 
 @media (hover: hover) {
-  .ocasiao:hover img { transform: scale(1.04); }
+  .card:hover .card__foto img { transform: scale(1.05); }
 }
 
-.galeria__titulo {
-  font-family: var(--fonte-serifa);
-  font-weight: 500;
-  font-size: 1.3rem;
+.nota-centro {
+  max-width: 640px;
+  margin: var(--esp-5) auto 0;
   text-align: center;
-  margin: var(--esp-8) 0 var(--esp-5);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--cor-texto-suave);
 }
 
-/* Mosaico */
-.galeria {
+.centro { text-align: center; margin-top: var(--esp-6); }
+.centro .nota-centro { margin: 0 auto var(--esp-4); }
+
+/* Bloco "Tem uma palavra que merece virar vela?" */
+.chamada {
+  display: grid;
+  justify-items: center;
+  gap: var(--esp-3);
+  max-width: 560px;
+  margin: var(--esp-6) auto 0;
+  padding: var(--esp-5);
+  text-align: center;
+  border: 1px solid var(--cor-dourado);
+  border-radius: var(--raio);
+}
+.chamada__texto { font-family: var(--fonte-serifa); font-style: italic; font-size: 1.25rem; line-height: 1.3; }
+
+/* ===== LEMBRANÇAS PERSONALIZADAS ===== */
+.lembrancas { display: grid; gap: var(--esp-5); }
+
+.card--lado {
+  overflow: hidden;
+  background: var(--cor-fundo);
+  border-radius: var(--raio);
+}
+.card--lado .card__corpo { padding: var(--esp-4); }
+.card--lado .card__acoes { min-height: 40px; }
+
+/* Brilho da Fé: card largo, com a foto em arco e o texto ao lado */
+.fe { margin-top: var(--esp-8); }
+.fe__cabecalho { text-align: center; margin-bottom: var(--esp-5); }
+
+.fe__card { display: grid; gap: var(--esp-6); align-items: center; }
+
+.fe__foto {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  aspect-ratio: 3 / 4;
+}
+
+.fe__foto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask: var(--forma-chama) center / 100% 100% no-repeat;
+  mask: var(--forma-chama) center / 100% 100% no-repeat;
+}
+
+.fe__contorno {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.fe__contorno path { fill: none; stroke: var(--cor-dourado); stroke-width: 1px; }
+
+.fe__texto { text-align: center; }
+.fe__nome { margin: 0; font-family: var(--fonte-script); font-weight: var(--peso-script); font-size: 2.5rem; line-height: 1.15; }
+.fe__texto .botao { margin-top: var(--esp-4); }
+
+/* ===== VAGALUMI CORPORATIVO ===== */
+.corporativo__cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: 150px;
+  gap: var(--esp-3);
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.corporativo__card { text-align: center; }
+.corporativo__card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--raio);
+  margin-bottom: var(--esp-3);
+}
+
+/* Linha fina separando duas seções de mesmo fundo */
+.secao--linha { border-top: 1px solid var(--cor-linha); }
+
+/* ===== JÁ ILUMINAMOS ===== */
+.mosaico {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--esp-2);
 }
-.galeria__item {
+
+.mosaico__item {
   overflow: hidden;
+  aspect-ratio: 4 / 5;
   border-radius: var(--raio);
   background: var(--cor-fundo-alt);
 }
-.galeria__item img { width: 100%; height: 100%; object-fit: cover; }
-.galeria__item--alto { grid-row: span 2; }
-.galeria__item--largo { grid-column: span 2; }
+.mosaico__item img { width: 100%; height: 100%; object-fit: cover; }
+
+.edicao {
+  position: relative;
+  max-width: 720px;
+  margin: var(--esp-6) auto 0;
+  padding: var(--esp-6) var(--esp-5);
+  text-align: center;
+  background: var(--cor-fundo-alt);
+  border-radius: var(--raio);
+}
+
+.edicao__estrela { position: absolute; top: var(--esp-4); right: var(--esp-4); width: 16px; height: 16px; }
+
+.edicao__titulo {
+  font-family: var(--fonte-serifa);
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+.edicao__frase {
+  margin-top: var(--esp-2);
+  font-family: var(--fonte-serifa);
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  color: var(--cor-texto-suave);
+}
+
+.edicao__legenda {
+  margin-top: var(--esp-3);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--cor-texto-suave);
+}
+
+/* ===== NATAL LUZ ===== */
+.natal { position: relative; overflow: hidden; }
+
+/* Ilustração em traço, só como ornamento ao fundo */
+.natal__ornamento {
+  position: absolute;
+  right: -24%;
+  bottom: -2%;
+  width: 110%;
+  max-width: 640px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.natal__grade {
+  position: relative;
+  display: grid;
+  gap: var(--esp-7);
+  align-items: center;
+}
+
+.natal__fotos {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+  aspect-ratio: 3 / 4;
+}
+
+.natal__foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask: var(--forma-chama) center / 100% 100% no-repeat;
+  mask: var(--forma-chama) center / 100% 100% no-repeat;
+}
+
+.natal__contorno {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.natal__contorno path { fill: none; stroke: var(--cor-dourado); stroke-width: 1px; }
+
+/* Segunda foto, menor, sobreposta no canto */
+.natal__foto-menor {
+  position: absolute;
+  right: 0;
+  bottom: -5%;
+  width: 40%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 5px solid var(--cor-fundo);
+  border-radius: var(--raio);
+  box-shadow: 0 8px 24px rgba(43, 38, 32, 0.12);
+}
+
+.natal__estrela--1 { width: 16px; height: 16px; top: 4%; left: 12%; }
+.natal__estrela--2 { width: 11px; height: 11px; top: 7%; right: 13%; animation-delay: 1.8s; }
+
+.natal__texto { position: relative; text-align: center; }
+
+.selo--inline {
+  position: static;
+  display: inline-block;
+  margin-bottom: var(--esp-3);
+  font-size: 0.68rem;
+}
+
+.natal__titulo { font-size: 3.4rem; }
+
+.natal__descricao {
+  max-width: 440px;
+  margin: var(--esp-4) auto var(--esp-5);
+  color: var(--cor-texto-suave);
+}
 
 /* ===== COMO ENCOMENDAR ===== */
 .passos {
@@ -810,6 +969,40 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
 
 .passo__texto { font-size: 0.95rem; line-height: 1.45; }
 
+/* No Corporativo, os passos ficam sobre o fundo creme */
+.passos--claro .passo__numero { background: var(--cor-fundo); }
+
+/* Faixa de contato */
+.contatos {
+  display: grid;
+  gap: var(--esp-3);
+  max-width: 640px;
+  margin: var(--esp-6) auto 0;
+}
+
+.contatos__bloco {
+  display: grid;
+  justify-items: center;
+  gap: var(--esp-1);
+  padding: var(--esp-4);
+  text-align: center;
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio);
+  transition: border-color var(--transicao);
+}
+.contatos__bloco:hover { border-color: var(--cor-dourado); }
+.contatos__bloco svg { color: var(--cor-dourado-escuro); }
+
+.contatos__rotulo {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.contatos__valor { font-family: var(--fonte-serifa); font-weight: 600; font-size: 1.2rem; line-height: 1.2; }
+
 /* ===== SOBRE A VAGALUMI ===== */
 .sobre__grade { display: grid; gap: var(--esp-6); align-items: center; }
 
@@ -834,6 +1027,7 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 40%; /* enquadra o rosto e deixa o fundo de fora */
   border-radius: var(--raio) var(--raio-folha);
   background: var(--cor-fundo-alt);
 }
@@ -853,6 +1047,7 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   line-height: 1.1;
   margin-top: var(--esp-5);
 }
+.assinatura--centro { text-align: center; margin-top: var(--esp-6); }
 
 /* ===== DEPOIMENTOS (carrossel com scroll-snap) ===== */
 .carrossel { position: relative; }
@@ -883,18 +1078,20 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   background: var(--cor-fundo);
 }
 
+/* Prints de stories: inteiros e pequenos (a imagem tem baixa resolução) */
 .depoimento__foto {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  max-width: 300px;
+  margin: 0 auto var(--esp-4);
+  aspect-ratio: 9 / 16;
   object-fit: cover;
   border-radius: var(--raio);
   background: var(--cor-fundo-alt);
-  margin-bottom: var(--esp-4);
 }
 
 .depoimento__texto {
   font-family: var(--fonte-serifa);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-style: italic;
   line-height: 1.4;
 }
@@ -1014,6 +1211,8 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
 .rodape__menu a:hover,
 .rodape__link:hover { opacity: 1; color: var(--cor-dourado); }
 
+.rodape__sub a { font-size: 0.68rem; opacity: 0.75; }
+
 .rodape__contato {
   display: flex;
   flex-direction: column;
@@ -1068,6 +1267,224 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
+/* ===== SACOLA: BOTÕES, CONTADOR E QUANTIDADE ===== */
+.botao--whatsapp {
+  background: var(--cor-whatsapp-escuro);
+  border-color: var(--cor-whatsapp-escuro);
+  color: #fff;
+}
+.botao--whatsapp:hover { background: #0E7740; color: #fff; }
+
+.botao.is-pronto {
+  background: var(--cor-dourado-escuro);
+  border-color: var(--cor-dourado-escuro);
+  color: #fff;
+}
+
+.cabecalho__sacola { position: relative; }
+
+.contador {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--cor-texto);
+  color: var(--cor-fundo);
+  font-size: 0.65rem;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  transition: transform 0.25s ease;
+}
+.contador.is-pulando { transform: scale(1.3); }
+.contador[data-vazio="true"] { background: var(--cor-dourado); color: var(--cor-texto); }
+
+.quantidade {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--cor-texto);
+  border-radius: var(--raio);
+  flex: 0 0 auto;
+}
+.quantidade__botao {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 46px;
+}
+.quantidade__valor { min-width: 28px; text-align: center; font-weight: 500; }
+
+/* Com a sacola aberta, o botão sobe e sai de cena para não ficar por cima */
+body.sacola-aberta .whatsapp-flutuante {
+  transform: translateY(-24px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== SACOLA (gaveta pela direita) ===== */
+.sacola {
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100%);
+  background: var(--cor-fundo);
+  box-shadow: var(--sombra-suave);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform var(--transicao), visibility var(--transicao);
+}
+.sacola.is-aberta { transform: translateX(0); visibility: visible; }
+
+.sacola__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--esp-3) var(--esp-3) var(--esp-3) var(--esp-5);
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+.sacola__titulo {
+  font-family: var(--fonte-serifa);
+  font-weight: 500;
+  font-size: 1.3rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.sacola__corpo {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--esp-4) var(--esp-5);
+}
+
+.item-sacola {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: var(--esp-3);
+  padding-block: var(--esp-3);
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+.item-sacola img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--raio);
+  background: var(--cor-fundo-alt);
+}
+
+.item-sacola__nome {
+  font-family: var(--fonte-serifa);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.item-sacola__preco { font-size: 0.82rem; color: var(--cor-texto-suave); }
+
+.item-sacola__acoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--esp-2);
+}
+
+.item-sacola .quantidade { border-color: var(--cor-linha); }
+.item-sacola .quantidade__botao { width: 32px; height: 32px; }
+
+.item-sacola__remover {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--cor-texto-suave);
+  padding: var(--esp-2) 0;
+}
+
+.sacola__vazia {
+  display: grid;
+  justify-items: center;
+  gap: var(--esp-3);
+  padding-block: var(--esp-7);
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+.sacola__vazia[hidden] { display: none; }
+.sacola__vazia svg { color: var(--cor-dourado); }
+
+.sacola__obs-rotulo {
+  display: block;
+  margin-top: var(--esp-5);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.sacola__obs-rotulo span { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--cor-texto-suave); }
+
+.sacola__obs {
+  width: 100%;
+  margin-top: var(--esp-2);
+  padding: var(--esp-3);
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio);
+  background: #fff;
+  resize: vertical;
+  font-size: 0.9rem;
+}
+
+.sacola__rodape {
+  padding: var(--esp-4) var(--esp-5) var(--esp-5);
+  border-top: 1px solid var(--cor-linha);
+  background: var(--cor-fundo);
+}
+
+.sacola__subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+.sacola__nota { font-size: 0.75rem; color: var(--cor-texto-suave); margin: var(--esp-1) 0 var(--esp-3); }
+
+/* ===== NOTIFICAÇÃO (toast) ===== */
+.aviso-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 100;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--raio);
+  background: var(--cor-texto);
+  color: var(--cor-fundo);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, 16px);
+  pointer-events: none;
+  transition: opacity var(--transicao), transform var(--transicao);
+}
+.aviso-toast.is-visivel { opacity: 1; transform: translate(-50%, 0); }
+
+
+/* Opcional de presente em cada item */
+.item-sacola__presente {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--esp-2);
+  margin-top: var(--esp-2);
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+.item-sacola__presente input { flex: none; width: 16px; height: 16px; margin: 1px 0 0; accent-color: var(--cor-dourado-escuro); }
+
 /* ===== ANIMAÇÕES DE ENTRADA ===== */
 .js .revelar {
   opacity: 0;
@@ -1105,13 +1522,24 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
 
   .filtros { justify-content: center; margin-inline: 0; padding-inline: 0; }
 
-  .grade-produtos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--esp-7) var(--esp-5); }
-  .card .botao { font-size: 0.7rem; }
+  .grade-colecao { --colunas: 3; --vao: var(--esp-5); }
+  .card__acoes .botao { font-size: 0.7rem; }
 
-  .ocasioes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--esp-4); }
+  .faixa--midia { grid-template-columns: 1fr 1.2fr; align-items: center; text-align: left; }
+  .faixa__videos { height: 240px; }
 
-  .galeria { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 200px; gap: var(--esp-3); }
-  .galeria__item--largo { grid-column: 1 / -1; }
+  .lembrancas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card--lado { flex-direction: row; }
+  .card--lado .card__foto { flex: 0 0 44%; aspect-ratio: auto; min-height: 240px; }
+
+  .fe__card { grid-template-columns: 1fr 1.2fr; gap: var(--esp-7); }
+  .fe__texto { text-align: left; }
+
+  .corporativo__cards { gap: var(--esp-5); }
+
+  .mosaico { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--esp-3); }
+
+  .contatos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   /* Passos na horizontal, com a linha passando atrás dos círculos */
   .passos {
@@ -1137,6 +1565,7 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   .rodape__grade { grid-template-columns: 1fr 1fr; text-align: left; justify-items: start; align-items: start; }
   .rodape__marca { grid-column: 1 / -1; justify-self: center; text-align: center; }
   .rodape__menu { flex-direction: column; justify-content: flex-start; }
+  .rodape__sub { padding-left: var(--esp-3); }
   .rodape__contato { align-items: flex-start; }
 
 }
@@ -1189,6 +1618,53 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   }
   .menu__lista a:hover::after { transform: scaleX(1); }
 
+  .menu__seta { display: inline; font-size: 0.6rem; margin-left: 2px; color: var(--cor-dourado-escuro); }
+
+  .menu__item--sub { position: relative; }
+
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 2;
+    min-width: 190px;
+    padding: var(--esp-2) 0;
+    margin-top: var(--esp-2);
+    background: var(--cor-fundo);
+    border: 1px solid var(--cor-linha);
+    border-radius: var(--raio);
+    box-shadow: 0 8px 24px rgba(43, 38, 32, 0.08);
+    transform: translate(-50%, 4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transicao), transform var(--transicao), visibility var(--transicao);
+  }
+
+  /* Ponte invisível para o mouse chegar ao submenu sem ele fechar */
+  .submenu::before {
+    content: "";
+    position: absolute;
+    inset: -12px 0 auto 0;
+    height: 12px;
+  }
+
+  .menu__item--sub:hover .submenu,
+  .menu__item--sub:focus-within .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  .submenu a {
+    display: block;
+    padding: var(--esp-2) var(--esp-4);
+    font-size: 0.68rem;
+    white-space: nowrap;
+    color: var(--cor-texto);
+  }
+  .submenu a::after { display: none; }
+  .submenu a:hover { color: var(--cor-dourado-texto); background: var(--cor-fundo-alt); }
+
   /* Hero dividido: texto à esquerda, foto à direita */
   .hero { padding-block: var(--esp-7); }
   .hero__grade {
@@ -1205,11 +1681,13 @@ body.menu-aberto .cabecalho__barra { visibility: hidden; }
   }
   .estrela--3 { left: 46%; top: 60%; }
 
-  .grade-produtos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-  .destaque__grade { grid-template-columns: 1.1fr 1fr; gap: var(--esp-8); }
-
-  .galeria { grid-auto-rows: 240px; }
+  /* Natal Luz: foto à esquerda, texto à direita */
+  .natal__grade { grid-template-columns: 1fr 1fr; gap: var(--esp-8); }
+  .natal__fotos { max-width: 440px; }
+  .natal__texto { text-align: left; }
+  .natal__descricao { margin-inline: 0; }
+  .natal__titulo { font-size: 4.2rem; }
+  .natal__ornamento { right: -6%; bottom: -10%; width: 50%; }
 
   .sobre__grade { grid-template-columns: 1fr 1.1fr; gap: var(--esp-8); }
 
